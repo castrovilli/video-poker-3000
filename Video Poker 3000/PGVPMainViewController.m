@@ -13,6 +13,10 @@
 #import "PGCardsPokerTable.h"
 #import "PGVPCardInfo.h"
 
+static const int kSideMargin = 15;
+static const int kTopVertSep = 20;
+static const int kResultsMargin = 10;
+
 @interface PGVPMainViewController ()
 
 @end
@@ -25,6 +29,9 @@
     PGVPBetView * _betView;
     BOOL _dealt;
     PGCardsPokerTable * _pokerMachine;
+    UILabel * _resultsLabel;
+    NSString * _buttonText;
+    NSString * _resultsText;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -61,17 +68,14 @@
     [_dealButton sizeToFit];
     [_dealButton addTarget:self action:@selector(mainButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     _dealButton.translatesAutoresizingMaskIntoConstraints = NO;
-    _dealButton.layer.borderColor = [UIColor colorWithRed:0 green:.4 blue:0 alpha:1].CGColor;
-    _dealButton.layer.borderWidth = 1;
     [self.view addSubview:_dealButton];
     _dealt = NO;
     
     
     //  Poker hand
     
-    _hand = [[PGVPFiveCardHand alloc] initWithFrame:CGRectMake(15, 137, 290, 71)];
+    _hand = [PGVPFiveCardHand objectWithFrame:CGRectMake(15, 137, 290, 71) andMachineDelegate:_pokerMachine andNotifyDelegate:self];
     _hand.translatesAutoresizingMaskIntoConstraints = NO;
-    _hand.delegate = _pokerMachine;
     [self.view addSubview:_hand];
     
     
@@ -87,22 +91,54 @@
     _cashView = [[PGVPCashView alloc] initWithFrame:(CGRectMake(0, 0, 0, 0)) andAmount:100];
     _cashView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_cashView];
+    
+    
+    //  Results container
+    
+    UIView * _resultsContainer = [UIView new];
+    _resultsContainer.backgroundColor = [UIColor colorWithRed:.8 green:1 blue:.8 alpha:1];
+    _resultsContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:_resultsContainer];
+    
 
+    //  Results label
+    
+    _resultsLabel = [UILabel new];
+    _resultsLabel.text = @"Welcome to Video Poker! Deal your first hand to begin.";
+    [_resultsLabel sizeToFit];
+    _resultsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _resultsLabel.numberOfLines = 2;
+    _resultsLabel.textAlignment = NSTextAlignmentCenter;
+    [_resultsContainer addSubview:_resultsLabel];
+
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:20]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_banner attribute:NSLayoutAttributeBottom multiplier:1 constant:20]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_banner attribute:NSLayoutAttributeBottom multiplier:1 constant:kTopVertSep]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:44]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:-kSideMargin]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:kTopVertSep]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:-15]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_dealButton attribute:NSLayoutAttributeBottom multiplier:1 constant:44]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1 constant:15]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1 constant:kSideMargin]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_cashView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_cashView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_resultsContainer attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_resultsContainer attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1 constant:kSideMargin]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_resultsContainer attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:-kSideMargin]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_resultsContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_cashView attribute:NSLayoutAttributeBottom multiplier:1 constant:kTopVertSep]];
+
+    [_resultsContainer addConstraint:[NSLayoutConstraint constraintWithItem:_resultsLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_resultsContainer attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [_resultsContainer addConstraint:[NSLayoutConstraint constraintWithItem:_resultsLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:_resultsContainer attribute:NSLayoutAttributeLeft multiplier:1 constant:kResultsMargin]];
+    [_resultsContainer addConstraint:[NSLayoutConstraint constraintWithItem:_resultsLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_resultsContainer attribute:NSLayoutAttributeRight multiplier:1 constant:-kResultsMargin]];
+    [_resultsContainer addConstraint:[NSLayoutConstraint constraintWithItem:_resultsLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_resultsContainer attribute:NSLayoutAttributeTop multiplier:1 constant:kResultsMargin]];
+    [_resultsContainer addConstraint:[NSLayoutConstraint constraintWithItem:_resultsLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_resultsContainer attribute:NSLayoutAttributeBottom multiplier:1 constant:-kResultsMargin]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_resultsContainer attribute:NSLayoutAttributeBottom multiplier:1 constant:44]];
+    
 }
 
 
@@ -118,17 +154,31 @@
 }
 
 - (void)updateButtonTitle:(NSString *)newTitle andResultsLabel:(NSString *)newLabel {
+    _buttonText = newTitle;
+    _resultsText = newLabel;
+    
+    /*
     [_dealButton setTitle:newTitle forState:UIControlStateNormal];
     [_dealButton sizeToFit];
     
-    //_resultsLabel.text = newLabel;
+    _resultsLabel.text = newLabel;
+    [_resultsLabel sizeToFit];
+     */
 }
+
+- (void)exchangeCards
+{
+    [_hand exchangeCards];
+}
+
 
 - (void)dealCards
 {
     if ( _dealt == NO ) {
         [_hand dealCardsFaceUp];
         _dealt = YES;
+    } else {
+        [_hand redealCards];
     }
 }
 
@@ -140,25 +190,23 @@
     }
 }
 
+- (void)cardsAllChanged
+{
+    [_dealButton setTitle:_buttonText forState:UIControlStateNormal];
+    [_dealButton sizeToFit];
+    
+    _resultsLabel.text = _resultsText;
+    [_resultsLabel sizeToFit];
+    
+    [self updateBetAndWinnings];
+
+}
+
 - (IBAction)mainButtonAction:(id)sender
 {
-    /*
-    if ( _dealt ) {
-        [_hand discardCards];
-        _dealt = NO;
-        [_dealButton setTitle:@"Deal cards!" forState:UIControlStateNormal];
-        [_dealButton sizeToFit];
-    } else {
-        [_hand dealCards];
-        _dealt = YES;
-        [_dealButton setTitle:@"Discard cards!" forState:UIControlStateNormal];
-        [_dealButton sizeToFit];
-    }
-     */
     
     [_pokerMachine advanceGameState];
-    [self updateBetAndWinnings];
-    
+
     if ( _pokerMachine.gameState == POKER_GAMESTATE_DEALED ) {
         
         //  The initial cards have been dealt, so enable the card buttons for flipping,
@@ -174,6 +222,7 @@
         //  The cards have been exchanged and we're at the end of the hand, so disable the
         //  card buttons and enable the bet text field to allow a new bet to be entered.
         
+        [self exchangeCards];
         [self enableCardButtons:NO andBetTextField:YES];
         [self updateButtonTitle:@"Deal new hand" andResultsLabel:_pokerMachine.evaluationString];
         
@@ -194,6 +243,7 @@
         //  We've started a new game after losing the last one, so reset the fields to their
         //  initial values, and disable the card buttons and enable the bet field.
         
+        [self discardCards];
         [self enableCardButtons:NO andBetTextField:YES];
         [self updateButtonTitle:@"Deal your first hand!"
                 andResultsLabel:@"Welcome to Video Poker! Deal your first hand to begin."];

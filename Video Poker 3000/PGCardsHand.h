@@ -1,10 +1,14 @@
-//
-//  PGCardsHand.h
-//  VideoPoker
-//
-//  Created by Paul Griffiths on 12/21/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsHand.m
+ *  =============
+ *  Copyright 2013 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of playing cards hand class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
 
 #import <Foundation/Foundation.h>
 #import "PGCardsDeck.h"

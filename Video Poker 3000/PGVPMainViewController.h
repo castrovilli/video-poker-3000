@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PGVPPokerViewControllerDelegate.h"
 
-@interface PGVPMainViewController : UIViewController
+@interface PGVPMainViewController : UIViewController <PGVPPokerViewControllerDelegate>
+
 
 @end

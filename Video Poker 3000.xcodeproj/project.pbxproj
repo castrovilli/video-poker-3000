@@ -106,7 +106,9 @@
 		DAB274DA1879163B0039732C /* PGVPBetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPBetView.m; sourceTree = "<group>"; };
 		DAB274DD187932010039732C /* PGVPCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPCardInfo.h; sourceTree = "<group>"; };
 		DAB274DE187932010039732C /* PGVPCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPCardInfo.m; sourceTree = "<group>"; };
-		DAB274E118793A040039732C /* PGVPPokerMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerMachine.h; sourceTree = "<group>"; };
+		DAB274E118793A040039732C /* PGVPPokerMachineDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerMachineDelegate.h; sourceTree = "<group>"; };
+		DAB274E21879BA8A0039732C /* PGVPCardHandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPCardHandDelegate.h; sourceTree = "<group>"; };
+		DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerViewControllerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,7 +255,9 @@
 				DAB274A41878EBB00039732C /* OptionsTypes.h */,
 				DAB274AF1878EBB00039732C /* PGCardsPokerTable.h */,
 				DAB274B01878EBB00039732C /* PGCardsPokerTable.m */,
-				DAB274E118793A040039732C /* PGVPPokerMachine.h */,
+				DAB274E118793A040039732C /* PGVPPokerMachineDelegate.h */,
+				DAB274E21879BA8A0039732C /* PGVPCardHandDelegate.h */,
+				DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */,
 			);
 			name = "Model Classes";
 			sourceTree = "<group>";

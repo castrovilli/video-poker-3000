@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PGVPCardHandDelegate.h"
+
 
 @interface PGVPCardPlace : UIView
+
+@property (weak, nonatomic) id<PGVPCardHandDelegate> delegate;
+@property (assign, nonatomic, readonly) BOOL flipped;
+
++ (PGVPCardPlace *)objectWithFrame:(CGRect)frame andDelegate:(id<PGVPCardHandDelegate>)delegate;
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<PGVPCardHandDelegate>)delegate;
 
 - (void)dealCard:(int)cardIndex faceDown:(BOOL)faceDown;
 - (void)discardCard;

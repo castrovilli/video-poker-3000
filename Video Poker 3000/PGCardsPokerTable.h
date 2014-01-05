@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PGCardsPokerHandInfo.h"
 #import "OptionsTypes.h"
-#import "PGVPPokerMachine.h"
+#import "PGVPPokerMachineDelegate.h"
 
 
 //  Enumeration for game state. See implementation for explanations of each state.
@@ -25,7 +25,7 @@ enum PGCardsPokerGameState {
 
 //  Class interface
 
-@interface PGCardsPokerTable : NSObject <PGVPPokerMachine>
+@interface PGCardsPokerTable : NSObject <PGVPPokerMachineDelegate>
 
 
 //  Properties

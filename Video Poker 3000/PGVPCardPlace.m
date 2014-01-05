@@ -13,19 +13,24 @@
     UIImageView * _currentCardImg;
     UIView * _emptyCardImg;
     BOOL _hasCard;
-    BOOL _flipped;
 }
 
 
-- (instancetype)initWithFrame:(CGRect)frame
++ (PGVPCardPlace *)objectWithFrame:(CGRect)frame andDelegate:(id<PGVPCardHandDelegate>)delegate
+{
+    return [[PGVPCardPlace alloc] initWithFrame:frame andDelegate:delegate];
+}
+
+
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<PGVPCardHandDelegate>)delegate
 {
     self = [super initWithFrame:frame];
     if ( self ) {
-        self.backgroundColor = nil;
+        _delegate = delegate;
         _emptyCardImg = [[UIView alloc] initWithFrame:frame];
         _cardBackImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"card_back_blue"]];
         _currentCardImg = nil;
-
+        
         [self addSubview:_emptyCardImg];
         _hasCard = NO;
         
@@ -33,6 +38,7 @@
         [self addGestureRecognizer:tap];
     }
     return self;
+ 
 }
 
 
@@ -83,11 +89,13 @@
             oldView = _cardBackImg;
             newView = _currentCardImg;
             _flipped = NO;
+            [self.delegate wasFlipped:self];
             opts = UIViewAnimationOptionTransitionFlipFromLeft;
         } else {
             oldView = _currentCardImg;
             newView = _cardBackImg;
             _flipped = YES;
+            [self.delegate wasFlipped:self];
             opts = UIViewAnimationOptionTransitionFlipFromRight;
         }
         
