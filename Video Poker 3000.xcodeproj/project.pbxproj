@@ -19,6 +19,34 @@
 		DAB274911878EB430039732C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB274791878EB420039732C /* UIKit.framework */; };
 		DAB274991878EB430039732C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB274971878EB430039732C /* InfoPlist.strings */; };
 		DAB2749B1878EB430039732C /* Video_Poker_3000Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2749A1878EB430039732C /* Video_Poker_3000Tests.m */; };
+		DAB274B11878EBB00039732C /* PGCardsCard.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274A61878EBB00039732C /* PGCardsCard.m */; };
+		DAB274B21878EBB00039732C /* PGCardsCard.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274A61878EBB00039732C /* PGCardsCard.m */; };
+		DAB274B31878EBB00039732C /* PGCardsDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274A81878EBB00039732C /* PGCardsDeck.m */; };
+		DAB274B41878EBB00039732C /* PGCardsDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274A81878EBB00039732C /* PGCardsDeck.m */; };
+		DAB274B51878EBB00039732C /* PGCardsHand.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274AA1878EBB00039732C /* PGCardsHand.m */; };
+		DAB274B61878EBB00039732C /* PGCardsHand.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274AA1878EBB00039732C /* PGCardsHand.m */; };
+		DAB274B71878EBB00039732C /* PGCardsPokerHand.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274AC1878EBB00039732C /* PGCardsPokerHand.m */; };
+		DAB274B81878EBB00039732C /* PGCardsPokerHand.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274AC1878EBB00039732C /* PGCardsPokerHand.m */; };
+		DAB274B91878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274AE1878EBB00039732C /* PGCardsPokerHandInfo.m */; };
+		DAB274BA1878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274AE1878EBB00039732C /* PGCardsPokerHandInfo.m */; };
+		DAB274BB1878EBB00039732C /* PGCardsPokerTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274B01878EBB00039732C /* PGCardsPokerTable.m */; };
+		DAB274BC1878EBB00039732C /* PGCardsPokerTable.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274B01878EBB00039732C /* PGCardsPokerTable.m */; };
+		DAB274C31878EBE10039732C /* PGCardsCardComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274BE1878EBE10039732C /* PGCardsCardComparisonTests.m */; };
+		DAB274C41878EBE10039732C /* PGCardsDeckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274BF1878EBE10039732C /* PGCardsDeckTests.m */; };
+		DAB274C51878EBE10039732C /* PGCardsHandTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274C01878EBE10039732C /* PGCardsHandTests.m */; };
+		DAB274C61878EBE10039732C /* PGCardsPokerHandScoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274C11878EBE10039732C /* PGCardsPokerHandScoreTests.m */; };
+		DAB274C71878EBE10039732C /* PGCardsPokerHandTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274C21878EBE10039732C /* PGCardsPokerHandTests.m */; };
+		DAB274CA1878EC6C0039732C /* PGVPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274C91878EC6C0039732C /* PGVPMainViewController.m */; };
+		DAB274CD1878ED750039732C /* PGVPCardPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274CC1878ED750039732C /* PGVPCardPlace.m */; };
+		DAB274CE1878ED750039732C /* PGVPCardPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274CC1878ED750039732C /* PGVPCardPlace.m */; };
+		DAB274D11878F72F0039732C /* PGVPFiveCardHand.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274D01878F72F0039732C /* PGVPFiveCardHand.m */; };
+		DAB274D21878F72F0039732C /* PGVPFiveCardHand.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274D01878F72F0039732C /* PGVPFiveCardHand.m */; };
+		DAB274D718790D240039732C /* PGVPCashView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274D618790D240039732C /* PGVPCashView.m */; };
+		DAB274D818790D240039732C /* PGVPCashView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274D618790D240039732C /* PGVPCashView.m */; };
+		DAB274DB1879163B0039732C /* PGVPBetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DA1879163B0039732C /* PGVPBetView.m */; };
+		DAB274DC1879163B0039732C /* PGVPBetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DA1879163B0039732C /* PGVPBetView.m */; };
+		DAB274DF187932010039732C /* PGVPCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DE187932010039732C /* PGVPCardInfo.m */; };
+		DAB274E0187932010039732C /* PGVPCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DE187932010039732C /* PGVPCardInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +76,37 @@
 		DAB274961878EB430039732C /* Video Poker 3000Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Video Poker 3000Tests-Info.plist"; sourceTree = "<group>"; };
 		DAB274981878EB430039732C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAB2749A1878EB430039732C /* Video_Poker_3000Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Video_Poker_3000Tests.m; sourceTree = "<group>"; };
+		DAB274A41878EBB00039732C /* OptionsTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsTypes.h; sourceTree = "<group>"; };
+		DAB274A51878EBB00039732C /* PGCardsCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsCard.h; sourceTree = "<group>"; };
+		DAB274A61878EBB00039732C /* PGCardsCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsCard.m; sourceTree = "<group>"; };
+		DAB274A71878EBB00039732C /* PGCardsDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsDeck.h; sourceTree = "<group>"; };
+		DAB274A81878EBB00039732C /* PGCardsDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsDeck.m; sourceTree = "<group>"; };
+		DAB274A91878EBB00039732C /* PGCardsHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsHand.h; sourceTree = "<group>"; };
+		DAB274AA1878EBB00039732C /* PGCardsHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsHand.m; sourceTree = "<group>"; };
+		DAB274AB1878EBB00039732C /* PGCardsPokerHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsPokerHand.h; sourceTree = "<group>"; };
+		DAB274AC1878EBB00039732C /* PGCardsPokerHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsPokerHand.m; sourceTree = "<group>"; };
+		DAB274AD1878EBB00039732C /* PGCardsPokerHandInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsPokerHandInfo.h; sourceTree = "<group>"; };
+		DAB274AE1878EBB00039732C /* PGCardsPokerHandInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsPokerHandInfo.m; sourceTree = "<group>"; };
+		DAB274AF1878EBB00039732C /* PGCardsPokerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsPokerTable.h; sourceTree = "<group>"; };
+		DAB274B01878EBB00039732C /* PGCardsPokerTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsPokerTable.m; sourceTree = "<group>"; };
+		DAB274BE1878EBE10039732C /* PGCardsCardComparisonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCardsCardComparisonTests.m; path = "../Video Poker 3000/PGCardsCardComparisonTests.m"; sourceTree = "<group>"; };
+		DAB274BF1878EBE10039732C /* PGCardsDeckTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCardsDeckTests.m; path = "../Video Poker 3000/PGCardsDeckTests.m"; sourceTree = "<group>"; };
+		DAB274C01878EBE10039732C /* PGCardsHandTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCardsHandTests.m; path = "../Video Poker 3000/PGCardsHandTests.m"; sourceTree = "<group>"; };
+		DAB274C11878EBE10039732C /* PGCardsPokerHandScoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCardsPokerHandScoreTests.m; path = "../Video Poker 3000/PGCardsPokerHandScoreTests.m"; sourceTree = "<group>"; };
+		DAB274C21878EBE10039732C /* PGCardsPokerHandTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCardsPokerHandTests.m; path = "../Video Poker 3000/PGCardsPokerHandTests.m"; sourceTree = "<group>"; };
+		DAB274C81878EC6C0039732C /* PGVPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPMainViewController.h; sourceTree = "<group>"; };
+		DAB274C91878EC6C0039732C /* PGVPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPMainViewController.m; sourceTree = "<group>"; };
+		DAB274CB1878ED750039732C /* PGVPCardPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPCardPlace.h; sourceTree = "<group>"; };
+		DAB274CC1878ED750039732C /* PGVPCardPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPCardPlace.m; sourceTree = "<group>"; };
+		DAB274CF1878F72F0039732C /* PGVPFiveCardHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPFiveCardHand.h; sourceTree = "<group>"; };
+		DAB274D01878F72F0039732C /* PGVPFiveCardHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPFiveCardHand.m; sourceTree = "<group>"; };
+		DAB274D518790D240039732C /* PGVPCashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPCashView.h; sourceTree = "<group>"; };
+		DAB274D618790D240039732C /* PGVPCashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPCashView.m; sourceTree = "<group>"; };
+		DAB274D91879163B0039732C /* PGVPBetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPBetView.h; sourceTree = "<group>"; };
+		DAB274DA1879163B0039732C /* PGVPBetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPBetView.m; sourceTree = "<group>"; };
+		DAB274DD187932010039732C /* PGVPCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPCardInfo.h; sourceTree = "<group>"; };
+		DAB274DE187932010039732C /* PGVPCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPCardInfo.m; sourceTree = "<group>"; };
+		DAB274E118793A040039732C /* PGVPPokerMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerMachine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +166,13 @@
 		DAB2747B1878EB420039732C /* Video Poker 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				DAB274D418790C060039732C /* Model Classes */,
+				DAB274D318790BEB0039732C /* View Classes */,
+				DAB274BD1878EBC50039732C /* PGCards */,
 				DAB274841878EB420039732C /* PGVPAppDelegate.h */,
 				DAB274851878EB420039732C /* PGVPAppDelegate.m */,
+				DAB274C81878EC6C0039732C /* PGVPMainViewController.h */,
+				DAB274C91878EC6C0039732C /* PGVPMainViewController.m */,
 				DAB274871878EB420039732C /* Images.xcassets */,
 				DAB2747C1878EB420039732C /* Supporting Files */,
 			);
@@ -129,6 +193,11 @@
 		DAB274941878EB430039732C /* Video Poker 3000Tests */ = {
 			isa = PBXGroup;
 			children = (
+				DAB274BE1878EBE10039732C /* PGCardsCardComparisonTests.m */,
+				DAB274BF1878EBE10039732C /* PGCardsDeckTests.m */,
+				DAB274C01878EBE10039732C /* PGCardsHandTests.m */,
+				DAB274C11878EBE10039732C /* PGCardsPokerHandScoreTests.m */,
+				DAB274C21878EBE10039732C /* PGCardsPokerHandTests.m */,
 				DAB2749A1878EB430039732C /* Video_Poker_3000Tests.m */,
 				DAB274951878EB430039732C /* Supporting Files */,
 			);
@@ -142,6 +211,51 @@
 				DAB274971878EB430039732C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAB274BD1878EBC50039732C /* PGCards */ = {
+			isa = PBXGroup;
+			children = (
+				DAB274A51878EBB00039732C /* PGCardsCard.h */,
+				DAB274A61878EBB00039732C /* PGCardsCard.m */,
+				DAB274A71878EBB00039732C /* PGCardsDeck.h */,
+				DAB274A81878EBB00039732C /* PGCardsDeck.m */,
+				DAB274A91878EBB00039732C /* PGCardsHand.h */,
+				DAB274AA1878EBB00039732C /* PGCardsHand.m */,
+				DAB274AB1878EBB00039732C /* PGCardsPokerHand.h */,
+				DAB274AC1878EBB00039732C /* PGCardsPokerHand.m */,
+				DAB274AD1878EBB00039732C /* PGCardsPokerHandInfo.h */,
+				DAB274AE1878EBB00039732C /* PGCardsPokerHandInfo.m */,
+			);
+			name = PGCards;
+			sourceTree = "<group>";
+		};
+		DAB274D318790BEB0039732C /* View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DAB274CF1878F72F0039732C /* PGVPFiveCardHand.h */,
+				DAB274D01878F72F0039732C /* PGVPFiveCardHand.m */,
+				DAB274CB1878ED750039732C /* PGVPCardPlace.h */,
+				DAB274CC1878ED750039732C /* PGVPCardPlace.m */,
+				DAB274D518790D240039732C /* PGVPCashView.h */,
+				DAB274D618790D240039732C /* PGVPCashView.m */,
+				DAB274D91879163B0039732C /* PGVPBetView.h */,
+				DAB274DA1879163B0039732C /* PGVPBetView.m */,
+				DAB274DD187932010039732C /* PGVPCardInfo.h */,
+				DAB274DE187932010039732C /* PGVPCardInfo.m */,
+			);
+			name = "View Classes";
+			sourceTree = "<group>";
+		};
+		DAB274D418790C060039732C /* Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DAB274A41878EBB00039732C /* OptionsTypes.h */,
+				DAB274AF1878EBB00039732C /* PGCardsPokerTable.h */,
+				DAB274B01878EBB00039732C /* PGCardsPokerTable.m */,
+				DAB274E118793A040039732C /* PGVPPokerMachine.h */,
+			);
+			name = "Model Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,8 +354,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB274CA1878EC6C0039732C /* PGVPMainViewController.m in Sources */,
+				DAB274B11878EBB00039732C /* PGCardsCard.m in Sources */,
+				DAB274CD1878ED750039732C /* PGVPCardPlace.m in Sources */,
 				DAB274821878EB420039732C /* main.m in Sources */,
+				DAB274B51878EBB00039732C /* PGCardsHand.m in Sources */,
+				DAB274BB1878EBB00039732C /* PGCardsPokerTable.m in Sources */,
 				DAB274861878EB420039732C /* PGVPAppDelegate.m in Sources */,
+				DAB274D11878F72F0039732C /* PGVPFiveCardHand.m in Sources */,
+				DAB274DF187932010039732C /* PGVPCardInfo.m in Sources */,
+				DAB274DB1879163B0039732C /* PGVPBetView.m in Sources */,
+				DAB274D718790D240039732C /* PGVPCashView.m in Sources */,
+				DAB274B31878EBB00039732C /* PGCardsDeck.m in Sources */,
+				DAB274B91878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */,
+				DAB274B71878EBB00039732C /* PGCardsPokerHand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +375,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB274B81878EBB00039732C /* PGCardsPokerHand.m in Sources */,
+				DAB274BA1878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */,
+				DAB274C41878EBE10039732C /* PGCardsDeckTests.m in Sources */,
+				DAB274BC1878EBB00039732C /* PGCardsPokerTable.m in Sources */,
+				DAB274C31878EBE10039732C /* PGCardsCardComparisonTests.m in Sources */,
+				DAB274B41878EBB00039732C /* PGCardsDeck.m in Sources */,
+				DAB274C61878EBE10039732C /* PGCardsPokerHandScoreTests.m in Sources */,
+				DAB274D21878F72F0039732C /* PGVPFiveCardHand.m in Sources */,
+				DAB274D818790D240039732C /* PGVPCashView.m in Sources */,
+				DAB274E0187932010039732C /* PGVPCardInfo.m in Sources */,
+				DAB274B21878EBB00039732C /* PGCardsCard.m in Sources */,
 				DAB2749B1878EB430039732C /* Video_Poker_3000Tests.m in Sources */,
+				DAB274DC1879163B0039732C /* PGVPBetView.m in Sources */,
+				DAB274C71878EBE10039732C /* PGCardsPokerHandTests.m in Sources */,
+				DAB274CE1878ED750039732C /* PGVPCardPlace.m in Sources */,
+				DAB274B61878EBB00039732C /* PGCardsHand.m in Sources */,
+				DAB274C51878EBE10039732C /* PGCardsHandTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

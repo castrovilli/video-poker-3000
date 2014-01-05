@@ -37,6 +37,11 @@
                BlueprintName = "Video Poker 3000Tests"
                ReferencedContainer = "container:Video Poker 3000.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Video_Poker_3000Tests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

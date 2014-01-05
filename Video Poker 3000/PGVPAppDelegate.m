@@ -7,14 +7,18 @@
 //
 
 #import "PGVPAppDelegate.h"
+#import "PGVPMainViewController.h"
 
 @implementation PGVPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+
+    PGVPMainViewController * controller = [PGVPMainViewController new];
+    self.window.rootViewController = controller;
+    
+    self.window.backgroundColor = [UIColor grayColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
