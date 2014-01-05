@@ -17,8 +17,9 @@
 @protocol PGVPPokerViewControllerDelegate <NSObject>
 
 /**
- Message to be sent by a delegee when the card hand view has changed state.
+ Message to be sent by a delegee when the card hand view has changed state and
+ all animations are complete.
  */
-- (void)cardsAllChanged;
+- (void)cardsAllChangedAndAnimationsComplete;
 
 @end

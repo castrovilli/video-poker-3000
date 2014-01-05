@@ -96,7 +96,7 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
         }
         
         NSTimeInterval timeDelay = kDealDelay * 4 + kDealTransitionTime;
-        [_notifyDelegate performSelector:@selector(cardsAllChanged) withObject:nil afterDelay:timeDelay];
+        [_notifyDelegate performSelector:@selector(cardsAllChangedAndAnimationsComplete) withObject:nil afterDelay:timeDelay];
     } else {
         [NSException raise:@"Cards already dealt" format:@"Cards already dealt"];
     }
@@ -172,7 +172,7 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
     }
     
     NSTimeInterval timeDelay = anyCardsFlipped ? (kExchangeDelay + kFlipTransitionTime) : 0;
-    [_notifyDelegate performSelector:@selector(cardsAllChanged) withObject:nil afterDelay:timeDelay];
+    [_notifyDelegate performSelector:@selector(cardsAllChangedAndAnimationsComplete) withObject:nil afterDelay:timeDelay];
 }
 
 

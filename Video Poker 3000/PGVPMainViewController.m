@@ -190,7 +190,7 @@ static const int kResultsMargin = 10;
     }
 }
 
-- (void)cardsAllChanged
+- (void)cardsAllChangedAndAnimationsComplete
 {
     [_dealButton setTitle:_buttonText forState:UIControlStateNormal];
     [_dealButton sizeToFit];

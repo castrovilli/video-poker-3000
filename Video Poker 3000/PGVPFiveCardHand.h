@@ -40,30 +40,30 @@
             andNotifyDelegate:(NSObject<PGVPPokerViewControllerDelegate> *)notifyDelegate;
 
 /**
- Deals five new cards.
+ Deals five new cards with animation.
  @param faceDown @c YES to deal cards face down, @c NO to deal cards face up.
  */
 - (void)dealCards:(BOOL)faceDown;
 
 /**
- Deals five new cards face down.
+ Deals five new cards face down with animation.
  @attention Any existing hand should be discarded with @c discardCards prior to calling this.
  */
 - (void)dealCardsFaceDown;
 
 /**
- Deals five new cards face down.
+ Deals five new cards face down with animation.
  @attention Any existing hand should be discarded with @c discardCards prior to calling this.
  */
 - (void)dealCardsFaceUp;
 
 /**
- Discards the current cards.
+ Discards the current cards with animation.
  */
 - (void)discardCards;
 
 /**
- Discards the current cards, and deals a new hand face up.
+ Discards the current cards, and deals a new hand face up, both with animation.
  */
 - (void)redealCards;
 
