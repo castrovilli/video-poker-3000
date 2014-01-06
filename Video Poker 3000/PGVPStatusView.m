@@ -1,17 +1,29 @@
-//
-//  PGVPStatusView.m
-//  Video Poker 3000
-//
-//  Created by Paul Griffiths on 1/5/14.
-//  Copyright (c) 2014 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGVPStatusView.m
+ *  ================
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of class to show a video poker game's status.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGVPStatusView.h"
 
-static const int kPGVPResultsMargin = 5;
+
+/**
+ Inner margin between status text label and view bounds.
+ */
+static const CGFloat kPGVPResultsMargin = 5;
 
 
 @implementation PGVPStatusView {
+    /**
+     Label containing the status text.
+     */
     UILabel * _statusLabel;
 }
 
@@ -20,6 +32,7 @@ static const int kPGVPResultsMargin = 5;
 {
     return [[PGVPStatusView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andStatusText:statusText];
 }
+
 
 - (id)initWithFrame:(CGRect)frame andStatusText:(NSString *)statusText;
 {

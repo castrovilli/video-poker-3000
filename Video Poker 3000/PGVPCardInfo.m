@@ -16,10 +16,12 @@
 
 @implementation PGVPCardInfo
 
+
 + (PGVPCardInfo *)objectWithPosition:(int)positionIndex cardIndex:(int)cardIndex flipped:(BOOL)flipped
 {
     return [[PGVPCardInfo alloc] initWithPosition:positionIndex cardIndex:cardIndex flipped:flipped];
 }
+
 
 - (instancetype)initWithPosition:(int)positionIndex cardIndex:(int)cardIndex flipped:(BOOL)flipped
 {
@@ -31,5 +33,6 @@
     }
     return self;
 }
+
 
 @end

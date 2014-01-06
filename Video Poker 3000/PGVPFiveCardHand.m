@@ -19,34 +19,58 @@
 /**
  Time interval between dealing of each subsequent card.
  */
-static const NSTimeInterval kDealDelay = 0.03;
+static const NSTimeInterval kPGVPDealDelay = 0.03;
 
 /**
  Time interval between discarding an exchanged card, and dealing the new one.
  */
-static const NSTimeInterval kExchangeDelay = 0.5;
+static const NSTimeInterval kPGVPExchangeDelay = 0.5;
 
 /**
  Time interval between discarding all the cards, and dealing a new hand.
  */
-static const NSTimeInterval kRedealDelay = 0.5;
+static const NSTimeInterval kPGVPRedealDelay = 0.5;
+
+
+@interface PGVPFiveCardHand ()
 
 /**
- Time interval for a card deal transition.
+ Deals a single card to a specified place.
+ @param cardInfo PGVPCardInfo object containing the position and card indices, and flipped status.
  */
-static const NSTimeInterval kDealTransitionTime = 0.3;
+- (void)dealCard:(PGVPCardInfo *)cardInfo;
 
 /**
- Time interval for a card flip transition.
+ Discards the card from a specified place.
+ @param number Zero-based index of place from which to discard.
  */
-static const NSTimeInterval kFlipTransitionTime = 0.25;
+- (void)discardCard:(NSNumber *)number;
+
+@end
 
 
 @implementation PGVPFiveCardHand {
+    
+    /**
+     An array of card places.
+     */
     NSMutableArray * _cards;
+    
+    /**
+     Flag set to @c YES when a hand is currently dealt, @c NO otherwise.
+     */
     BOOL _dealt;
+    
+    /**
+     Weak reference to the poker machine delegate.
+     */
     __weak id<PGVPPokerMachineDelegate> _machineDelegate;
+    
+    /**
+     Weak reference to the view controller delegate, for notifications of animation completion.
+     */
     __weak NSObject<PGVPPokerViewControllerDelegate> * _notifyDelegate;
+    
 }
 
 
@@ -93,10 +117,10 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
             PGVPCardInfo * cardInfo = [PGVPCardInfo objectWithPosition:i
                                                              cardIndex:[_machineDelegate cardIndexAtPosition:(i + 1)]
                                                                flipped:faceDown];
-            [self performSelector:@selector(dealCard:) withObject:cardInfo afterDelay:(i * kDealDelay)];
+            [self performSelector:@selector(dealCard:) withObject:cardInfo afterDelay:(i * kPGVPDealDelay)];
         }
         
-        NSTimeInterval timeDelay = kDealDelay * 4 + kDealTransitionTime;
+        NSTimeInterval timeDelay = kPGVPDealDelay * 4 + kPGVPDealTransitionTime;
         [_notifyDelegate performSelector:@selector(cardsAllChangedAndAnimationsComplete) withObject:nil afterDelay:timeDelay];
     } else {
         [NSException raise:@"Cards already dealt" format:@"Cards already dealt"];
@@ -133,7 +157,7 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
     if ( _dealt ) {
         _dealt = NO;
         for ( int i = 0; i < 5; ++i ) {
-            [self performSelector:@selector(discardCard:) withObject:@(i) afterDelay:(4 - i) * kDealDelay];
+            [self performSelector:@selector(discardCard:) withObject:@(i) afterDelay:(4 - i) * kPGVPDealDelay];
         }
     }
 }
@@ -168,11 +192,11 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
             PGVPCardInfo * cardInfo = [PGVPCardInfo objectWithPosition:i
                                                              cardIndex:[_machineDelegate cardIndexAtPosition:(i + 1)]
                                                                flipped:NO];
-            [self performSelector:@selector(dealCard:) withObject:cardInfo afterDelay:kExchangeDelay];
+            [self performSelector:@selector(dealCard:) withObject:cardInfo afterDelay:kPGVPExchangeDelay];
         }
     }
     
-    NSTimeInterval timeDelay = anyCardsFlipped ? (kExchangeDelay + kFlipTransitionTime) : 0;
+    NSTimeInterval timeDelay = anyCardsFlipped ? (kPGVPExchangeDelay + kPGVPFlipTransitionTime) : 0;
     [_notifyDelegate performSelector:@selector(cardsAllChangedAndAnimationsComplete) withObject:nil afterDelay:timeDelay];
 }
 
@@ -180,7 +204,7 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
 - (void)redealCards
 {
     [self discardCards];
-    [self performSelector:@selector(dealCardsFaceUp) withObject:Nil afterDelay:kRedealDelay];
+    [self performSelector:@selector(dealCardsFaceUp) withObject:Nil afterDelay:kPGVPRedealDelay];
 }
 
 

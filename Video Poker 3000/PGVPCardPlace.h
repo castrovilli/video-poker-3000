@@ -15,6 +15,17 @@
 #import "PGVPCardHandDelegate.h"
 
 
+/**
+ Time interval for a card deal transition.
+ */
+static const NSTimeInterval kPGVPDealTransitionTime = 0.3;
+
+/**
+ Time interval for a card flip transition.
+ */
+static const NSTimeInterval kPGVPFlipTransitionTime = 0.25;
+
+
 @interface PGVPCardPlace : UIView
 
 /**

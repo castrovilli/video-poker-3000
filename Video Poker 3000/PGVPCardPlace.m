@@ -110,7 +110,8 @@
         
         //  Transition to new view
         
-        [UIView transitionFromView:_blankCardImg toView:newView duration:0.3 options:UIViewAnimationOptionTransitionCurlDown completion:nil];
+        [UIView transitionFromView:_blankCardImg toView:newView duration:kPGVPDealTransitionTime
+                           options:UIViewAnimationOptionTransitionCurlDown completion:nil];
     } else {
         [NSException raise:@"card_dealt" format:@"Already has a card"];
     }
@@ -128,7 +129,8 @@
         //  Transition from current view to empty view
         
         UIImageView * currentView = _flipped ? _cardBackImg : _currentCardImg;
-        [UIView transitionFromView:currentView toView:_blankCardImg duration:0.3 options:UIViewAnimationOptionTransitionCurlUp completion:nil];
+        [UIView transitionFromView:currentView toView:_blankCardImg duration:kPGVPDealTransitionTime
+                           options:UIViewAnimationOptionTransitionCurlUp completion:nil];
     } else {
         [NSException raise:@"card_not_dealt" format:@"Does not have a card"];
     }
@@ -157,7 +159,7 @@
         
         //  Transition between views and notify delegate
         
-        [UIView transitionFromView:currentView toView:newView duration:0.25 options:opts completion:nil];
+        [UIView transitionFromView:currentView toView:newView duration:kPGVPFlipTransitionTime options:opts completion:nil];
         [_delegate wasFlipped:self];
     } else {
         [NSException raise:@"card_not_dealt" format:@"Does not have a card"];
