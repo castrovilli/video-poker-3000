@@ -47,6 +47,7 @@
 		DAB274DC1879163B0039732C /* PGVPBetView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DA1879163B0039732C /* PGVPBetView.m */; };
 		DAB274DF187932010039732C /* PGVPCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DE187932010039732C /* PGVPCardInfo.m */; };
 		DAB274E0187932010039732C /* PGVPCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DE187932010039732C /* PGVPCardInfo.m */; };
+		DAEAC670187A1FA900B95739 /* PGVPStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,8 @@
 		DAB274E118793A040039732C /* PGVPPokerMachineDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerMachineDelegate.h; sourceTree = "<group>"; };
 		DAB274E21879BA8A0039732C /* PGVPCardHandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPCardHandDelegate.h; sourceTree = "<group>"; };
 		DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerViewControllerDelegate.h; sourceTree = "<group>"; };
+		DAEAC66E187A1FA900B95739 /* PGVPStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPStatusView.h; sourceTree = "<group>"; };
+		DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPStatusView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,9 +171,9 @@
 		DAB2747B1878EB420039732C /* Video Poker 3000 */ = {
 			isa = PBXGroup;
 			children = (
+				DAB274BD1878EBC50039732C /* PGCards */,
 				DAB274D418790C060039732C /* Model Classes */,
 				DAB274D318790BEB0039732C /* View Classes */,
-				DAB274BD1878EBC50039732C /* PGCards */,
 				DAB274841878EB420039732C /* PGVPAppDelegate.h */,
 				DAB274851878EB420039732C /* PGVPAppDelegate.m */,
 				DAB274C81878EC6C0039732C /* PGVPMainViewController.h */,
@@ -239,12 +242,16 @@
 				DAB274D01878F72F0039732C /* PGVPFiveCardHand.m */,
 				DAB274CB1878ED750039732C /* PGVPCardPlace.h */,
 				DAB274CC1878ED750039732C /* PGVPCardPlace.m */,
+				DAEAC66E187A1FA900B95739 /* PGVPStatusView.h */,
+				DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */,
 				DAB274D518790D240039732C /* PGVPCashView.h */,
 				DAB274D618790D240039732C /* PGVPCashView.m */,
 				DAB274D91879163B0039732C /* PGVPBetView.h */,
 				DAB274DA1879163B0039732C /* PGVPBetView.m */,
 				DAB274DD187932010039732C /* PGVPCardInfo.h */,
 				DAB274DE187932010039732C /* PGVPCardInfo.m */,
+				DAB274E21879BA8A0039732C /* PGVPCardHandDelegate.h */,
+				DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */,
 			);
 			name = "View Classes";
 			sourceTree = "<group>";
@@ -256,8 +263,6 @@
 				DAB274AF1878EBB00039732C /* PGCardsPokerTable.h */,
 				DAB274B01878EBB00039732C /* PGCardsPokerTable.m */,
 				DAB274E118793A040039732C /* PGVPPokerMachineDelegate.h */,
-				DAB274E21879BA8A0039732C /* PGVPCardHandDelegate.h */,
-				DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */,
 			);
 			name = "Model Classes";
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				DAB274861878EB420039732C /* PGVPAppDelegate.m in Sources */,
 				DAB274D11878F72F0039732C /* PGVPFiveCardHand.m in Sources */,
 				DAB274DF187932010039732C /* PGVPCardInfo.m in Sources */,
+				DAEAC670187A1FA900B95739 /* PGVPStatusView.m in Sources */,
 				DAB274DB1879163B0039732C /* PGVPBetView.m in Sources */,
 				DAB274D718790D240039732C /* PGVPCashView.m in Sources */,
 				DAB274B31878EBB00039732C /* PGCardsDeck.m in Sources */,
@@ -588,6 +594,7 @@
 				DAB274A01878EB430039732C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DAB274A11878EB430039732C /* Build configuration list for PBXNativeTarget "Video Poker 3000Tests" */ = {
 			isa = XCConfigurationList;
@@ -596,6 +603,7 @@
 				DAB274A31878EB430039732C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

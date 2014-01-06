@@ -1,7 +1,7 @@
 /*
  *  PGVPCardsInfo.m
  *  ===============
- *  Copyright 2013 Paul Griffiths
+ *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
  *  Implementation of video poker card info class.

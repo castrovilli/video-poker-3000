@@ -10,6 +10,7 @@
 
 @interface PGVPCashView : UIView
 
++ (id)objectWithAmount:(int)amount;
 - (id)initWithFrame:(CGRect)frame andAmount:(int)amount;
 - (void)setAmount:(int)amount;
 

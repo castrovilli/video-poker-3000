@@ -10,6 +10,7 @@
 
 @interface PGVPBetView : UIView
 
++ (id)objectWithAmount:(int)amount;
 - (id)initWithFrame:(CGRect)frame andAmount:(int)amount;
 - (void)enable:(BOOL)status;
 - (void)setAmount:(int)amount;

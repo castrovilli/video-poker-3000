@@ -15,10 +15,19 @@
     UILabel * _amountLabel;
 }
 
+
++ (id)objectWithAmount:(int)amount
+{
+    return [[PGVPCashView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andAmount:amount];
+}
+
+
 - (id)initWithFrame:(CGRect)frame andAmount:(int)amount
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        
         _titleLabel = [UILabel new];
         _titleLabel.text = @"Cash:";
         [_titleLabel sizeToFit];

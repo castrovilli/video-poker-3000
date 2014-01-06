@@ -1,7 +1,7 @@
 /*
  *  PGVPCardPlace.h
  *  ===============
- *  Copyright 2013 Paul Griffiths
+ *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
  *  Interface to class representing a place in a card hand.

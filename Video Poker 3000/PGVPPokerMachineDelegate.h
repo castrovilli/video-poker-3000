@@ -1,7 +1,7 @@
 /*
  *  PGVPPokerMachineDelegate.h
  *  ==========================
- *  Copyright 2013 Paul Griffiths
+ *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
  *  Protocol for poker machine object delegates.

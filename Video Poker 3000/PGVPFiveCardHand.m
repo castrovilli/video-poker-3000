@@ -1,7 +1,7 @@
 /*
  *  PGVPFiveCardHand.m
  *  ==================
- *  Copyright 2013 Paul Griffiths
+ *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
  *  Implementation of video poker five card hand view.
@@ -66,6 +66,7 @@ static const NSTimeInterval kFlipTransitionTime = 0.25;
         _notifyDelegate = notifyDelegate;
         _dealt = NO;
         _cards = [NSMutableArray new];
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         
         for ( int i = 0; i < 5; ++i ) {
             PGVPCardPlace * cardPlace = [PGVPCardPlace objectWithFrame:CGRectMake(60 * i, 0, 50, 71) andDelegate:self];

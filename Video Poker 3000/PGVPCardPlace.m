@@ -1,7 +1,7 @@
 /*
  *  PGVPCardPlace.m
  *  ===============
- *  Copyright 2013 Paul Griffiths
+ *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
  *  Implementation of class representing a place in a card hand.
@@ -40,7 +40,7 @@
     /**
      An empty UIView the same size as a card image.
      */
-    UIView * _emptyCardImg;
+    UIImageView * _blankCardImg;
     
     /**
      @c YES if the card place current has a card, @c NO otherwise.
@@ -70,14 +70,15 @@
         //  Initialize instance variables
         
         _delegate = delegate;
-        _emptyCardImg = [[UIView alloc] initWithFrame:frame];
+        _blankCardImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blank_card"]];
+        _blankCardImg.alpha = 0.3;
         _cardBackImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"card_back_blue"]];
         _currentCardImg = nil;
         _hasCard = NO;
         
         //  Begin with empty view
         
-        [self addSubview:_emptyCardImg];
+        [self addSubview:_blankCardImg];
         
         //  Create and add gesture recognizer to flip the card when tapped.
         
@@ -109,7 +110,7 @@
         
         //  Transition to new view
         
-        [UIView transitionFromView:_emptyCardImg toView:newView duration:0.3 options:UIViewAnimationOptionTransitionCurlDown completion:nil];
+        [UIView transitionFromView:_blankCardImg toView:newView duration:0.3 options:UIViewAnimationOptionTransitionCurlDown completion:nil];
     } else {
         [NSException raise:@"card_dealt" format:@"Already has a card"];
     }
@@ -127,7 +128,7 @@
         //  Transition from current view to empty view
         
         UIImageView * currentView = _flipped ? _cardBackImg : _currentCardImg;
-        [UIView transitionFromView:currentView toView:_emptyCardImg duration:0.3 options:UIViewAnimationOptionTransitionCurlUp completion:nil];
+        [UIView transitionFromView:currentView toView:_blankCardImg duration:0.3 options:UIViewAnimationOptionTransitionCurlUp completion:nil];
     } else {
         [NSException raise:@"card_not_dealt" format:@"Does not have a card"];
     }
