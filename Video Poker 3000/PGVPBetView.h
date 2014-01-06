@@ -14,7 +14,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface PGVPBetView : UIView
+@interface PGVPBetView : UIView <UIPickerViewDataSource, UIPickerViewDelegate>
 
 /**
  Returns an object created with a specified bet amount.
