@@ -39,15 +39,10 @@ enum PGCardsPokerGameState {
 
 //  Public methods
 
--(BOOL)isCardFlipped:(int)cardPosition;
--(void)switchCardFlip:(int)cardPosition;
--(void)replaceFlippedCards;
--(int)cardIndexAtPosition:(int)position;
--(void)advanceGameState;
+- (void)replaceFlippedCards;
+- (void)advanceGameState;
 - (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption;
 - (NSArray *)getCardInfoArray;
--(int)getCurrentCash;
--(int)getCurrentBet;
 
 
 
