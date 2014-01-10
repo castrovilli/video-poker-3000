@@ -30,6 +30,8 @@ static const CGFloat kPGVPStatusBarHeight = 20;
  */
 static const CGFloat kPGVPTopVertSep = 15;
 
+static const CGFloat kPGVPVertSep = 7;
+
 /**
  Bottom margin
  */
@@ -240,12 +242,12 @@ static const CGFloat kPGVPBottomMargin = 15;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:kPGVPStatusBarHeight]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_banner attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPTopVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_banner attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [_hand addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:290]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPTopVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_cashView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
@@ -253,12 +255,12 @@ static const CGFloat kPGVPBottomMargin = 15;
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_betView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPTopVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_betView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPTopVertSep]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeTop multiplier:1 constant:-kPGVPTopVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeTop multiplier:1 constant:-kPGVPVertSep]];
     
     [buttonContainer addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:buttonContainer attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [buttonContainer addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:buttonContainer attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];

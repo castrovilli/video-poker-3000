@@ -75,7 +75,7 @@ static const CGFloat kPGVPInnerMargin = 5;
         
         _titleLabel = [UILabel new];
         _titleLabel.text = @"Payout Table";
-        [_titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+        [_titleLabel setFont:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [_titleLabel sizeToFit];
         [container addSubview:_titleLabel];

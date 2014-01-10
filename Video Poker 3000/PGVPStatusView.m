@@ -45,6 +45,7 @@ static const CGFloat kPGVPResultsMargin = 5;
         //  Status label
 
         _statusLabel = [UILabel new];
+        [_statusLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
         _statusLabel.text = @"Welcome to Video Poker! Deal your first hand to begin.";
         _statusLabel.numberOfLines = 2;
         [_statusLabel sizeToFit];

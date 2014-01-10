@@ -49,8 +49,8 @@ static const CGFloat kPGVPFontSize = 12;
         _payoutLabel = [UILabel new];
         _handLabel.text = handNames[handType];
         _payoutLabel.text = [NSString stringWithFormat:@"%ix", [_delegate getPayoutRatioForHand:handType]];
-        [_handLabel setFont:[UIFont systemFontOfSize:kPGVPFontSize]];
-        [_payoutLabel setFont:[UIFont systemFontOfSize:kPGVPFontSize]];
+        [_handLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
+        [_payoutLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
         
         [_handLabel sizeToFit];
         [_payoutLabel sizeToFit];
