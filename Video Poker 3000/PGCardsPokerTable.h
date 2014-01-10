@@ -41,6 +41,7 @@ enum PGCardsPokerGameState {
 
 - (void)replaceFlippedCards;
 - (void)advanceGameState;
+- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType;
 - (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption;
 - (NSArray *)getCardInfoArray;
 

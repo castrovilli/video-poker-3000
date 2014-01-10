@@ -17,6 +17,7 @@
 #import "PGVPCashView.h"
 #import "PGVPBetView.h"
 #import "PGCardsPokerTable.h"
+#import "PGVPPayoutTableView.h"
 
 
 /**
@@ -28,6 +29,11 @@ static const CGFloat kPGVPStatusBarHeight = 20;
  The height of the vertical separation between certain views.
  */
 static const CGFloat kPGVPTopVertSep = 15;
+
+/**
+ Bottom margin
+ */
+static const CGFloat kPGVPBottomMargin = 15;
 
 
 @interface PGVPMainViewController ()
@@ -116,6 +122,11 @@ static const CGFloat kPGVPTopVertSep = 15;
      The main button view.
      */
     UIButton * _dealButton;
+    
+    /**
+     The payout table.
+     */
+    PGVPPayoutTableView * _payoutTable;
 
     /**
      A flag set to @c YES if there is a currently dealt hand, and to @c NO if
@@ -196,6 +207,15 @@ static const CGFloat kPGVPTopVertSep = 15;
     [self.view addSubview:_statusView];
     
     
+    //  Main button container
+    
+    UIView * buttonContainer = [UIView new];
+    buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    buttonContainer.layer.borderColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1].CGColor;
+    buttonContainer.layer.borderWidth = 1;
+    buttonContainer.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:buttonContainer];
+    
     //  Main button
     
     _dealButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -204,8 +224,14 @@ static const CGFloat kPGVPTopVertSep = 15;
     [_dealButton sizeToFit];
     [_dealButton addTarget:self action:@selector(mainButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     _dealButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_dealButton];
+    [buttonContainer addSubview:_dealButton];
     _dealt = NO;
+    
+    
+    //  Payout table
+    
+    _payoutTable = [[PGVPPayoutTableView alloc] initWithDelegate:_pokerMachine];
+    [self.view addSubview:_payoutTable];
     
     
     //  Autolayout constraints
@@ -229,8 +255,24 @@ static const CGFloat kPGVPTopVertSep = 15;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_betView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPTopVertSep]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:44]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPTopVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeTop multiplier:1 constant:-kPGVPTopVertSep]];
+    
+    [buttonContainer addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:buttonContainer attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [buttonContainer addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:buttonContainer attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    
+    NSLayoutConstraint * butContHeight = [NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:Nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:10000];
+    butContHeight.priority = 1;
+    [buttonContainer addConstraint:butContHeight];
+    
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:-kPGVPBottomMargin]];
+
+    
 }
 
 

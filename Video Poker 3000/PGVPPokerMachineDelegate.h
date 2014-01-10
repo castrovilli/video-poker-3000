@@ -12,6 +12,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "PGCardsPokerHandInfo.h"
 
 
 @protocol PGVPPokerMachineDelegate <NSObject>
@@ -21,5 +22,6 @@
 -(int)cardIndexAtPosition:(int)cardPosition;
 -(int)getCurrentCash;
 -(int)getCurrentBet;
+-(int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType;
 
 @end

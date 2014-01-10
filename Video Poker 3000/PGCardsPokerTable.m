@@ -239,6 +239,11 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
+- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType
+{
+    return [self getPayoutRatioForHand:handType withType:self.payoutOption];
+}
+
 //  Private methods for flipping all or individual cards.
 //  The card's position is specified in the range 1 through 5, inclusive.
 
