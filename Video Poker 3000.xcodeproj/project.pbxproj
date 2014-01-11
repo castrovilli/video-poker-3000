@@ -50,6 +50,7 @@
 		DAEAC670187A1FA900B95739 /* PGVPStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */; };
 		DAF5B147187F764B00C7A08B /* PGVPPayoutTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B146187F764B00C7A08B /* PGVPPayoutTableView.m */; };
 		DAF5B14A187F766700C7A08B /* PGVPPayoutLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B149187F766700C7A08B /* PGVPPayoutLineView.m */; };
+		DAF5B14C1880FD2700C7A08B /* PGCardsCardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B14B1880FD2700C7A08B /* PGCardsCardTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		DAF5B146187F764B00C7A08B /* PGVPPayoutTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPPayoutTableView.m; sourceTree = "<group>"; };
 		DAF5B148187F766700C7A08B /* PGVPPayoutLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPPayoutLineView.h; sourceTree = "<group>"; };
 		DAF5B149187F766700C7A08B /* PGVPPayoutLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPPayoutLineView.m; sourceTree = "<group>"; };
+		DAF5B14B1880FD2700C7A08B /* PGCardsCardTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsCardTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 		DAB274941878EB430039732C /* Video Poker 3000Tests */ = {
 			isa = PBXGroup;
 			children = (
+				DAF5B14B1880FD2700C7A08B /* PGCardsCardTests.m */,
 				DAB274BE1878EBE10039732C /* PGCardsCardComparisonTests.m */,
 				DAB274BF1878EBE10039732C /* PGCardsDeckTests.m */,
 				DAB274C01878EBE10039732C /* PGCardsHandTests.m */,
@@ -398,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB274B81878EBB00039732C /* PGCardsPokerHand.m in Sources */,
+				DAF5B14C1880FD2700C7A08B /* PGCardsCardTests.m in Sources */,
 				DAB274BA1878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */,
 				DAB274C41878EBE10039732C /* PGCardsDeckTests.m in Sources */,
 				DAB274BC1878EBB00039732C /* PGCardsPokerTable.m in Sources */,

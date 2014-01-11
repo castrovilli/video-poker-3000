@@ -1,10 +1,15 @@
-//
-//  PGCardsCard.m
-//  ConsolePoker
-//
-//  Created by Paul Griffiths on 12/19/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsCard.m
+ *  =============
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Interface to playing card class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGCardsCard.h"
 
@@ -12,32 +17,27 @@
 @implementation PGCardsCard
 
 
-//  Public class method to return an integer rank from an integer index
-
-+(int)getRankFromIndex:(int)index {
++ (int)getRankFromIndex:(int)index
+{
     int rank = index % 13 + 1;
     return (rank == 1) ? 14 : rank;
 }
 
 
-//  Public class method to return an integer suit from an integer index
-
-+(int)getSuitFromIndex:(int)index {
++ (int)getSuitFromIndex:(int)index
+{
     return index / 13;
 }
 
 
-//  Public class method to return an integer index from an integer rank and suit
-
-+(int)getIndexFromRank:(int)rank andSuit:(int)suit {
++ (int)getIndexFromRank:(int)rank andSuit:(int)suit
+{
     return ((rank == 14) ? 0 : (rank - 1)) + (suit * 13);
 }
 
 
-//  Public class method to return an integer suit from a character representation,
-//  e.g. 'C' for clubs, 'S' for spades. Returns -1 on invalid character.
-
-+ (int)getSuitIntegerFromChar:(int)shortNameChar {
++ (int)getSuitIntegerFromChar:(int)shortNameChar
+{
     static const int shortNames[] = {'C', 'H', 'S', 'D'};
     
     for ( int idx = 0; idx < (sizeof(shortNames) / sizeof(shortNames[0])); ++idx ) {
@@ -50,10 +50,8 @@
 }
 
 
-//  Public class method to return an integer rank from a character representation,
-//  e.g. '2' for two, 'T' for ten, 'K' for king. Returns -1 on invalid character.
-
-+ (int)getRankIntegerFromChar:(int)shortNameChar {
++ (int)getRankIntegerFromChar:(int)shortNameChar
+{
     static const int shortNames[] = {0, 0, '2', '3', '4', '5', '6', '7', '8',
         '9', 'T', 'J', 'Q', 'K', 'A'};
     
@@ -67,10 +65,8 @@
 }
 
 
-//  Public class method to return a long string representation of an integer suit,
-//  e.g. "hearts" is returned for 1.
-
-+ (NSString *)getSuitLongString:(int)suit {
++ (NSString *)getSuitLongString:(int)suit
+{
     static NSArray * suitNames = nil;
     if ( !suitNames ) {
         suitNames = @[@"clubs", @"hearts", @"spades", @"diamonds"];
@@ -79,10 +75,8 @@
 }
 
 
-//  Public class method to return a long string representation of an integer rank,
-//  e.g. "king" is returned for 13.
-
-+ (NSString *)getRankLongString:(int)rank {
++ (NSString *)getRankLongString:(int)rank
+{
     static NSArray * rankNames = nil;
     if ( !rankNames ) {
         rankNames = @[@"ace", @"two", @"three", @"four", @"five", @"six", @"seven",
@@ -92,10 +86,8 @@
 }
 
 
-//  Public class method to return a short string representation of an integer suit,
-//  e.g. "S" is returned for 2.
-
-+ (NSString *)getSuitShortString:(int)suit {
++ (NSString *)getSuitShortString:(int)suit
+{
     static NSArray * suitNames = nil;
     if ( !suitNames ) {
         suitNames = @[@"C", @"H", @"S", @"D"];
@@ -104,10 +96,8 @@
 }
 
 
-//  Public class method to return a short string representation of an integer rank,
-//  e.g. "T" is returned for 10.
-
-+ (NSString *)getRankShortString:(int)rank {
++ (NSString *)getRankShortString:(int)rank
+{
     static NSArray * rankNames = nil;
     if ( !rankNames ) {
         rankNames = @[@"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"T", @"J", @"Q", @"K", @"A"];
@@ -116,9 +106,26 @@
 }
 
 
-//  Initialization method with specified card index
++ (PGCardsCard *)cardWithIndex:(int)index
+{
+    return [[PGCardsCard alloc] initWithIndex:index];
+}
 
-- (PGCardsCard *)initWithIndex:(int)index {
+
++ (PGCardsCard *)cardWithRank:(int)rank andSuit:(int)suit
+{
+    return [[PGCardsCard alloc] initWithRank:rank andSuit:suit];
+}
+
+
++ (PGCardsCard *)cardWithShortName:(NSString *)cardName
+{
+    return [[PGCardsCard alloc] initWithShortName:cardName];
+}
+
+
+- (instancetype)initWithIndex:(int)index
+{
     if ( index < 0 || index > 51 ) {
         return nil;
     }
@@ -127,16 +134,14 @@
         _index = index;
         _suit = [PGCardsCard getSuitFromIndex:index];
         _rank = [PGCardsCard getRankFromIndex:index];
-        _sortingIndex = _suit + 4 * ( (_rank == 14) ? 0 : _rank - 1);
     }
     
     return self;
 }
 
 
-//  Initialization method with specified rank and suit integers
-
-- (PGCardsCard *)initWithRank:(int)rank andSuit:(int)suit {
+- (instancetype)initWithRank:(int)rank andSuit:(int)suit
+{
     if ( suit < 0 || suit > 3 || rank < 1 || rank > 14 ) {
         return nil;
     }
@@ -145,9 +150,8 @@
 }
 
 
-//  Initialization method with specified short name, e.g. "QH"
-
--(PGCardsCard *)initWithShortName:(NSString *)cardName {
+- (instancetype)initWithShortName:(NSString *)cardName
+{
     if ( cardName.length != 2U ) {
         return nil;
     }
@@ -159,65 +163,70 @@
 }
 
 
-//  Default initialization method, returns Ace of Clubs
-
-- (PGCardsCard *)init {
+- (instancetype)init
+{
     return [self initWithIndex:0];
 }
 
 
-//  Public instance methods to return long and short names of cards
-
-- (NSString *)longName {
+- (NSString *)longName
+{
     return [NSString stringWithFormat:@"%@ of %@", [PGCardsCard getRankLongString:_rank],
             [PGCardsCard getSuitLongString:_suit]];
 }
 
 
-- (NSString *)shortName {
+- (NSString *)shortName
+{
     return [NSString stringWithFormat:@"%@%@", [PGCardsCard getRankShortString:_rank],
             [PGCardsCard getSuitShortString:_suit]];
 }
 
 
-//  Public instance methods to compare cards and ranks
-
-- (BOOL)isSameCardAsCard:(PGCardsCard *)otherCard {
+- (BOOL)isSameCardAsCard:(PGCardsCard *)otherCard
+{
     return (_index == otherCard.index) ? YES : NO;
 }
 
 
-- (BOOL)isNotSameCardAsCard:(PGCardsCard *)otherCard {
+- (BOOL)isNotSameCardAsCard:(PGCardsCard *)otherCard
+{
     return (_index != otherCard.index) ? YES : NO;
 }
 
 
-- (BOOL)isSameRankAsCard:(PGCardsCard *)otherCard {
+- (BOOL)isSameRankAsCard:(PGCardsCard *)otherCard
+{
     return (_rank == otherCard.rank) ? YES : NO;
 }
 
 
-- (BOOL)isNotSameRankAsCard:(PGCardsCard *)otherCard {
+- (BOOL)isNotSameRankAsCard:(PGCardsCard *)otherCard
+{
     return (_rank != otherCard.rank) ? YES : NO;
 }
 
 
-- (BOOL)isLowerRankThanCard:(PGCardsCard *)otherCard {
+- (BOOL)isLowerRankThanCard:(PGCardsCard *)otherCard
+{
     return (_rank < otherCard.rank) ? YES : NO;
 }
 
 
-- (BOOL)isHigherRankThanCard:(PGCardsCard *)otherCard {
+- (BOOL)isHigherRankThanCard:(PGCardsCard *)otherCard
+{
     return (_rank > otherCard.rank) ? YES : NO;
 }
 
 
-- (BOOL)isLowerOrEqualRankThanCard:(PGCardsCard *)otherCard {
+- (BOOL)isLowerOrEqualRankThanCard:(PGCardsCard *)otherCard
+{
     return (_rank <= otherCard.rank) ? YES : NO;
 }
 
 
-- (BOOL)isHigherOrEqualRankThanCard:(PGCardsCard *)otherCard {
+- (BOOL)isHigherOrEqualRankThanCard:(PGCardsCard *)otherCard
+{
     return (_rank >= otherCard.rank) ? YES : NO;
 }
 
