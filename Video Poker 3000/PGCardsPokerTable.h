@@ -1,50 +1,79 @@
-//
-//  PGCardsPokerTable.h
-//  VideoPoker
-//
-//  Created by Paul Griffiths on 12/21/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsPokerTable.h
+ *  ===================
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Interface to poker table class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import <Foundation/Foundation.h>
 #import "PGCardsPokerHandInfo.h"
-#import "OptionsTypes.h"
+#import "PGVPOptionsTypes.h"
 #import "PGVPPokerMachineDelegate.h"
 
 
-//  Enumeration for game state. See implementation for explanations of each state.
-
+/**
+ Enumeration type for game state.
+ */
 enum PGCardsPokerGameState {
-    POKER_GAMESTATE_INITIAL,
-    POKER_GAMESTATE_DEALED,
-    POKER_GAMESTATE_EVALUATED,
-    POKER_GAMESTATE_GAMEOVER,
-    POKER_GAMESTATE_NEWGAME
+    POKER_GAMESTATE_INITIAL,        /**< Bet has been made and cards can be dealt. */
+    POKER_GAMESTATE_DEALED,         /**< Cards have been dealt, and exchanges have been chosen. */
+    POKER_GAMESTATE_EVALUATED,      /**< The hand is over, and a new hand is ready to be dealt. */
+    POKER_GAMESTATE_GAMEOVER,       /**< The game is over. */
+    POKER_GAMESTATE_NEWGAME         /**< The first bet has been made at the start of a new game. */
 };
 
-
-//  Class interface
 
 @interface PGCardsPokerTable : NSObject <PGVPPokerMachineDelegate>
 
 
-//  Properties
+/**
+ The game state.
+ */
+@property (assign, nonatomic, readonly) enum PGCardsPokerGameState gameState;
 
-@property (nonatomic, readonly) enum PGCardsPokerGameState gameState;
-@property (strong, nonatomic) NSString * evaluationString;
-@property (nonatomic, readonly) int currentCash;
-@property (nonatomic) int currentBet;
-@property (nonatomic) enum PayoutChoiceOptions payoutOption;
+/**
+ A string containing a description of the evaluation of the current hand.
+ */
+@property (strong, nonatomic, readonly) NSString * evaluationString;
 
+/**
+ The current amount of cash.
+ */
+@property (assign, nonatomic, readonly) int currentCash;
 
-//  Public methods
+/**
+ The current bet.
+ */
+@property (assign, nonatomic, readwrite) int currentBet;
 
+/**
+ The selected payout option, or difficulty level.
+ */
+@property (assign, nonatomic, readwrite) enum PayoutChoiceOptions payoutOption;
+
+/**
+ Replaces card which the player has chosen to exchange with fresh cards from the deck.
+ */
 - (void)replaceFlippedCards;
-- (void)advanceGameState;
-- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType;
-- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption;
-- (NSArray *)getCardInfoArray;
 
+/**
+ Advances the game to the next state.
+ */
+- (void)advanceGameState;
+
+/**
+ Gets the payout ratio for the specified hand with a specified payout option.
+ @param handType The hand type.
+ @param payoutOption The specified payout option.
+ @return The payout ratio for the specified hand type and payout option.
+ */
+- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption;
 
 
 @end

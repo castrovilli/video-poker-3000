@@ -80,7 +80,7 @@
 		DAB274961878EB430039732C /* Video Poker 3000Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Video Poker 3000Tests-Info.plist"; sourceTree = "<group>"; };
 		DAB274981878EB430039732C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAB2749A1878EB430039732C /* Video_Poker_3000Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Video_Poker_3000Tests.m; sourceTree = "<group>"; };
-		DAB274A41878EBB00039732C /* OptionsTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsTypes.h; sourceTree = "<group>"; };
+		DAB274A41878EBB00039732C /* PGVPOptionsTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPOptionsTypes.h; sourceTree = "<group>"; };
 		DAB274A51878EBB00039732C /* PGCardsCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsCard.h; sourceTree = "<group>"; };
 		DAB274A61878EBB00039732C /* PGCardsCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCardsCard.m; sourceTree = "<group>"; };
 		DAB274A71878EBB00039732C /* PGCardsDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCardsDeck.h; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 		DAB274D418790C060039732C /* Model Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DAB274A41878EBB00039732C /* OptionsTypes.h */,
+				DAB274A41878EBB00039732C /* PGVPOptionsTypes.h */,
 				DAB274AF1878EBB00039732C /* PGCardsPokerTable.h */,
 				DAB274B01878EBB00039732C /* PGCardsPokerTable.m */,
 				DAB274E118793A040039732C /* PGVPPokerMachineDelegate.h */,

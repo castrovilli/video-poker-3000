@@ -1,10 +1,15 @@
-//
-//  PGCardsPokerTable.m
-//  VideoPoker
-//
-//  Created by Paul Griffiths on 12/21/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsPokerTable.m
+ *  ===================
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of poker table class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGCardsPokerTable.h"
 #import "PGCardsCard.h"
@@ -13,20 +18,108 @@
 #import "PGVPCardInfo.h"
 
 
-static const int BET_INITIAL_VALUE = 50;
-static const int CASH_INITIAL_VALUE = 1000;
+/**
+ Initial bet value.
+ */
+static const int kPGCardsBetInitialValue = 50;
+
+/**
+ Initial cash value.
+ */
+static const int kPGCardsCashInitialValue = 1000;
+
+
+@interface PGCardsPokerTable ()
+
+/**
+ Flips the card in the specified position.
+ @param position The 1-based index of the card position in the hand.
+ */
+- (void)flipCard:(int)position;
+
+/**
+ Flips all the cards in the hand.
+ */
+- (void)flipCards;
+
+/**
+ Unflips the card in the specified position.
+ @param position The 1-based index of the card position in the hand.
+ */
+- (void)unflipCard:(int)position;
+
+/**
+ Unflips all the cards in the hand.
+ */
+- (void)unflipCards;
+
+/**
+ Shuffles the deck and draws five cards, optionally discarding the existing hand.
+ @param discard @c YES to discard the current hand, @c NO otherwise.
+ */
+- (void)shuffleAndDrawWithDiscard:(BOOL)discard;
+
+/**
+ Deducts the current bet from the pot.
+ */
+- (void)deductBetFromPot;
+
+/**
+ Resets the current bet and cash to their initial values.
+ */
+- (void)resetBetAndCashToInitialValues;
+
+/**
+ Sets the game state.
+ @param gameState The new game state.
+ */
+- (void)setGameState:(enum PGCardsPokerGameState)gameState;
+
+/**
+ Updates the current cash and bet with the specified win ratio.
+ @param winRatio The win ratio.
+ */
+- (void)updateCashAndBetWithWinRatio:(int)winRatio;
+
+/**
+ Sets the evaluation string with the specified win ratio.
+ @param winRatio The win ratio.
+ */
+- (void)setEvaluationStringWithWinRatio:(int)winRatio;
+
+/**
+ Returns @c YES if the player is out of cash, @c NO otherwise.
+ */
+- (BOOL)outOfCash;
+
+@end
 
 
 @implementation PGCardsPokerTable {
+    
+    /**
+     The poker hand.
+     */
     PGCardsPokerHand * _hand;
+    
+    /**
+     The card deck.
+     */
     PGCardsDeck * _deck;
+    
+    /**
+     The flipped status of the cards in the hand, @c YES for flipped, @c NO otherwise.
+     */
     BOOL _flipped[5];
+     
 }
 
 
-//  Initialization method
+//  Public methods
 
-- (PGCardsPokerTable *)init {
+
+- (instancetype)init
+{
     if ( (self = [super init]) ) {
         _deck = [PGCardsDeck new];
         _hand = [PGCardsPokerHand new];
@@ -40,27 +133,8 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
-//  Public methods for changing a card's flipped status and querying its flipped status.
-//  The card's position is specified in the range 1 through 5, inclusive.
-
-- (BOOL)isCardFlipped:(int)position {
-    return _flipped[position - 1];
-}
-
-
-- (void)switchCardFlip:(int)position {
-    if ( [self isCardFlipped:position] ) {
-        [self unflipCard:position];
-    } else {
-        [self flipCard:position];
-    }
-}
-
-
-//  Public method for replacing the flipped cards with new ones
-//  The card's position is specified in the range 1 through 5, inclusive.
-
-- (void)replaceFlippedCards {
+- (void)replaceFlippedCards
+{
     for ( int position = 1; position < 6; ++position ) {
         if ( [self isCardFlipped:position] ) {
             [_hand replaceCardAtPosition:position fromDeck:_deck];
@@ -84,17 +158,8 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
-//  Public method for getting the index value of an individual card.
-//  The card's position is specified in the range 1 through 5, inclusive.
-
-- (int)cardIndexAtPosition:(int)position {
-    return [_hand cardIndexAtPosition:position];
-}
-
-
-//  Main public method for advancing the game state and progressing through the game.
-
-- (void)advanceGameState {
+- (void)advanceGameState
+{
     if ( self.gameState == POKER_GAMESTATE_INITIAL ) {
         
         //  Initial game state. Initial interface has been displayed prior to calling
@@ -177,9 +242,8 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
-//  Public method to return payout ratio
-
-- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption {
+- (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption
+{
     static const int videoPokerWinningsTableNormal[] = {0, 1, 2, 3, 4, 6, 9, 25, 50, 800};
     static const int videoPokerWinningsTableEasy[] = {0, 2, 3, 4, 15, 20, 50, 100, 250, 2500};
     int idx;
@@ -239,41 +303,82 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
+//  Delegate methods
+
+
+- (BOOL)isCardFlipped:(int)position
+{
+    return _flipped[position - 1];
+}
+
+
+- (void)switchCardFlip:(int)position
+{
+    if ( [self isCardFlipped:position] ) {
+        [self unflipCard:position];
+    } else {
+        [self flipCard:position];
+    }
+}
+
+
+- (int)cardIndexAtPosition:(int)position
+{
+    return [_hand cardIndexAtPosition:position];
+}
+
+
+- (int)getCurrentCash
+{
+    return _currentCash;
+}
+
+
+- (int)getCurrentBet
+{
+    return _currentBet;
+}
+
+
 - (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType
 {
     return [self getPayoutRatioForHand:handType withType:self.payoutOption];
 }
 
-//  Private methods for flipping all or individual cards.
-//  The card's position is specified in the range 1 through 5, inclusive.
 
-- (void)flipCard:(int)position {
+//  Private methods
+
+
+- (void)flipCard:(int)position
+{
     _flipped[position - 1] = YES;
 }
 
 
-- (void)flipCards {
+- (void)flipCards
+{
     for ( int position = 1; position < 6; ++position ) {
         [self flipCard:position];
     }
 }
 
 
-- (void)unflipCard:(int)position {
+- (void)unflipCard:(int)position
+{
     _flipped[position - 1] = NO;
 }
 
 
-- (void)unflipCards {
+- (void)unflipCards
+{
     for ( int position = 1; position < 6; ++position ) {
         [self unflipCard:position];
     }
 }
 
 
-//  Private method for shuffling deck and drawing a hand of cards
-
-- (void)shuffleAndDrawWithDiscard:(BOOL)discard {
+- (void)shuffleAndDrawWithDiscard:(BOOL)discard
+{
     if ( discard ) {
         [_hand discardAllCardsToDeck:_deck];
         [_deck replaceDiscards];
@@ -284,32 +389,27 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
-//  Private method for deducting the bet amount from the pot
-
-- (void)deductBetFromPot {
+- (void)deductBetFromPot
+{
     _currentCash -= self.currentBet;
 }
 
 
-//  Private method to reset cash and bet to initial values
-
-- (void)resetBetAndCashToInitialValues {
-    _currentBet = BET_INITIAL_VALUE;
-    _currentCash = CASH_INITIAL_VALUE;
-  
+- (void)resetBetAndCashToInitialValues
+{
+    _currentBet = kPGCardsBetInitialValue;
+    _currentCash = kPGCardsCashInitialValue;
 }
 
-//  Private method for setting the game state, a read-only property
 
-- (void)setGameState:(enum PGCardsPokerGameState)gameState {
+- (void)setGameState:(enum PGCardsPokerGameState)gameState
+{
     _gameState = gameState;
 }
 
 
-//  Private method for updating the pot with any winnings, and adjusting
-//  the default bet if it now exceeds the remaining cash.
-
-- (void)updateCashAndBetWithWinRatio:(int)winRatio {
+- (void)updateCashAndBetWithWinRatio:(int)winRatio
+{
     _currentCash += winRatio * _currentBet;
     
     if ( _currentBet > _currentCash ) {
@@ -318,11 +418,8 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
-//  Private method for setting the evaluation string. The evaluation string shows the
-//  type of poker hand achieved, plus either the amount of cash they won, or a generic
-//  bad luck message if they did not win.
-
-- (void)setEvaluationStringWithWinRatio:(int)winRatio {
+- (void)setEvaluationStringWithWinRatio:(int)winRatio
+{
     NSString * winLoseString;
     
     if ( winRatio ) {
@@ -338,20 +435,9 @@ static const int CASH_INITIAL_VALUE = 1000;
 }
 
 
-//  Private method returns YES if the player is out of cash, NO otherwise
-
-- (BOOL)outOfCash {
+- (BOOL)outOfCash
+{
     return (self.currentCash < 1) ? YES : NO;
-}
-
-- (int)getCurrentBet
-{
-    return _currentBet;
-}
-
-- (int)getCurrentCash
-{
-    return _currentCash;
 }
 
 
