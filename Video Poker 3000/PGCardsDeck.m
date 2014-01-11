@@ -38,7 +38,7 @@
         //  Add cards in reverse order, so first card is at top of deck
         
         for ( int index = 51; index >= 0; --index ) {
-            [_mainDeck addObject:[[PGCardsCard alloc] initWithIndex:index]];
+            [_mainDeck addObject:[PGCardsCard cardWithIndex:index]];
         }        
     }
     

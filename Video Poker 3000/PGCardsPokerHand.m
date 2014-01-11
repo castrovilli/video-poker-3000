@@ -1,21 +1,45 @@
-//
-//  PGCardsPokerHand.m
-//  VideoPoker
-//
-//  Created by Paul Griffiths on 12/21/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsPokerHand.h
+ *  ==================
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of playing card poker hand class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGCardsPokerHand.h"
 #import "PGCardsPokerHandInfo.h"
 
 
+@interface PGCardsPokerHand ()
+
+/**
+ Computes any singles, pairs, threes and fours in the hand.
+ */
+- (void)getRankMatches;
+
+/**
+ Tests the hand for a flush.
+ */
+- (void)checkForFlush;
+
+/**
+ Tests the hand for a straight.
+ */
+- (void)checkForStraight;
+
+@end
+
+
 @implementation PGCardsPokerHand
 
 
-//  Initializer method
-
-- (PGCardsPokerHand *)init {
+- (instancetype)init
+{
     if ( (self = [super init])) {
         _handInfo = [PGCardsPokerHandInfo new];
     }
@@ -24,9 +48,8 @@
 }
 
 
-//  Public method to evaluate the poker hand
-
-- (void) evaluate {
+- (void) evaluate
+{
     [_handInfo resetInfo];
     [self getRankMatches];
     
@@ -113,10 +136,8 @@
 }
 
 
-
-//  Public method to get a string representation of the most recent evaluation
-
-- (NSString *)evaluateString {
+- (NSString *)evaluateString
+{
     static const char * cardNamesSingular[] = {"NONE", "ace", "two", "three", "four", "five", "six", "seven",
         "eight", "nine", "ten", "jack", "queen", "king", "ace"};
     static const char * cardNamesPlural[] = {"NONE", "aces", "twos", "threes", "fours", "fives", "sixes", "sevens",
@@ -151,9 +172,8 @@
 }
 
 
-//  Private method which finds fours, threes, pairs and computes a list of single cards.
-
-- (void)getRankMatches {
+- (void)getRankMatches
+{
     int rankCounts[15] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     
     for ( PGCardsCard * card in _cards ) {
@@ -184,9 +204,8 @@
 }
 
 
-//  Private method which checks for a flush
-
-- (void)checkForFlush {
+- (void)checkForFlush
+{
     int suitCounts[4] = {0, 0, 0, 0};
     
     for ( PGCardsCard * card in _cards ) {
@@ -201,9 +220,8 @@
 }
 
 
-//  Private method which checks for a straight
-
-- (void)checkForStraight {
+- (void)checkForStraight
+{
     int single0 = [_handInfo singleAtIndex:0];
     int single1 = [_handInfo singleAtIndex:1];
     int single4 = [_handInfo singleAtIndex:4];
@@ -218,19 +236,20 @@
 }
 
 
-//  Public methods to compare poker hands by score
-
-- (BOOL)equalsHand:(PGCardsPokerHand *)otherHand {
+- (BOOL)equalsHand:(PGCardsPokerHand *)otherHand
+{
     return (_handInfo.score == otherHand.handInfo.score) ? YES : NO;
 }
 
 
-- (BOOL)beatsHand:(PGCardsPokerHand *)otherHand {
+- (BOOL)beatsHand:(PGCardsPokerHand *)otherHand
+{
     return (_handInfo.score > otherHand.handInfo.score) ? YES: NO;
 }
 
 
-- (BOOL)losesToHand:(PGCardsPokerHand *)otherHand {
+- (BOOL)losesToHand:(PGCardsPokerHand *)otherHand
+{
     return (_handInfo.score < otherHand.handInfo.score) ? YES : NO;
 }
 
