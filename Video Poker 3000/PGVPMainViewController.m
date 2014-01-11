@@ -30,10 +30,13 @@ static const CGFloat kPGVPStatusBarHeight = 20;
  */
 static const CGFloat kPGVPTopVertSep = 15;
 
+/**
+ The height of vertical separate between UI elements.
+ */
 static const CGFloat kPGVPVertSep = 7;
 
 /**
- Bottom margin
+ Bottom margin.
  */
 static const CGFloat kPGVPBottomMargin = 15;
 

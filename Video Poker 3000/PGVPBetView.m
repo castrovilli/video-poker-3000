@@ -139,7 +139,6 @@ static const CGFloat kPGVPSideMargin = 20;
 }
 
 
-
 - (CGSize)intrinsicContentSize
 {
     CGSize intrinsicSize;

@@ -1,29 +1,33 @@
-//
-//  PGVPPayoutLineView.m
-//  Video Poker 3000
-//
-//  Created by Paul Griffiths on 1/9/14.
-//  Copyright (c) 2014 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGVPPayoutLineView.m
+ *  ====================
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of class representing a line within the payout table.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGVPPayoutLineView.h"
 
 
+/**
+ Constant for inner margin dimension.
+ */
 static const CGFloat innerMargin = 5;
-static const CGFloat kPGVPFontSize = 12;
 
-@implementation PGVPPayoutLineView {
+
+@implementation PGVPPayoutLineView
+{
+    /**
+     The poker machine delegate.
+     */
     id<PGVPPokerMachineDelegate> _delegate;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
 
 - (instancetype)initWithHandType:(enum PGCardsVideoPokerHandType)handType andDelegate:(id<PGVPPokerMachineDelegate>)delegate
 {
@@ -65,7 +69,6 @@ static const CGFloat kPGVPFontSize = 12;
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_handLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_handLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_handLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-        //[self addConstraint:[NSLayoutConstraint constraintWithItem:_handLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_payoutLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:innerMargin]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_payoutLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_handLabel attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_payoutLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_handLabel attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
@@ -85,14 +88,5 @@ static const CGFloat kPGVPFontSize = 12;
     return intrinsicSize;
 }
 
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
