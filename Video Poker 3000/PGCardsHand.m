@@ -1,19 +1,24 @@
-//
-//  PGCardsHand.m
-//  VideoPoker
-//
-//  Created by Paul Griffiths on 12/21/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsHand.m
+ *  =============
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of playing card hand class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGCardsHand.h"
+
 
 @implementation PGCardsHand
 
 
-//  Initialization method
-
-- (PGCardsHand *)init {
+- (instancetype)init
+{
     if ( (self = [super init]) ) {
         _cards = [NSMutableArray new];
     }
@@ -22,39 +27,34 @@
 }
 
 
-//  Public method to return the number of cards currently in the hand
-
-- (NSUInteger)size {
+- (NSUInteger)size
+{
     return [_cards count];
 }
 
 
-//  Public method to add arbitrary cards from an array of short names
-
-- (void)addCardsFromArrayOfShortNames:(NSArray *)cardNames {
+- (void)addCardsFromArrayOfShortNames:(NSArray *)cardNames
+{
     for ( NSString * cardName in cardNames ) {
-        [_cards addObject:[[PGCardsCard alloc] initWithShortName:cardName]];
+        [_cards addObject:[PGCardsCard cardWithShortName:cardName]];
     }
 }
 
 
-//  Public method to draw the specified number of cards from the specified deck and add to the hand
-
-- (void)drawCards:(int)numCards fromDeck:(PGCardsDeck *)deck {
+- (void)drawCards:(int)numCards fromDeck:(PGCardsDeck *)deck
+{
     [_cards addObjectsFromArray:[deck drawTopCards:numCards]];
 }
 
 
-//  Public method to discard the entire hand back to the specified deck
-
-- (void)discardAllCardsToDeck:(PGCardsDeck *)deck {
+- (void)discardAllCardsToDeck:(PGCardsDeck *)deck
+{
     [deck addCardsToDiscards:_cards];
 }
 
 
-//  Public method to replace a card at a specified index with a new card from the specified deck
-
-- (int)replaceCardAtPosition:(int)position fromDeck:(PGCardsDeck *)deck {
+- (int)replaceCardAtPosition:(int)position fromDeck:(PGCardsDeck *)deck
+{
     PGCardsCard * newCard = [deck drawTopCard];
     if ( !newCard) {
         return -1;
@@ -68,9 +68,8 @@
 }
 
 
-//  Public methods to return information about the card at a specified index
-
-- (int)cardIndexAtPosition:(int)position {
+- (int)cardIndexAtPosition:(int)position
+{
     if ( position > [_cards count] || position < 1 ) {
         return -1;
     }
@@ -79,7 +78,8 @@
 }
 
 
-- (int)cardRankAtPosition:(int)position {
+- (int)cardRankAtPosition:(int)position
+{
     if ( position > [_cards count] || position < 1 ) {
         return -1;
     }
@@ -88,12 +88,14 @@
 }
 
 
-- (int)cardSuitAtPosition:(int)position {
+- (int)cardSuitAtPosition:(int)position
+{
     if ( position > [_cards count] || position < 1 ) {
         return -1;
     }
     
     return ((PGCardsCard *) _cards[position - 1]).suit;
 }
+
 
 @end
