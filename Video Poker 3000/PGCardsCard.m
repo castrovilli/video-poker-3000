@@ -4,7 +4,7 @@
  *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
- *  Interface to playing card class.
+ *  Implementation of playing card class.
  *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/

@@ -1,22 +1,36 @@
-//
-//  PGCardsDeck.m
-//  VideoPoker
-//
-//  Created by Paul Griffiths on 12/21/13.
-//  Copyright (c) 2013 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGCardsDeck.m
+ *  =============
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of playing card deck class.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGCardsDeck.h"
 
+
 @implementation PGCardsDeck {
+    
+    /**
+     An array containing the main card deck.
+     */
     NSMutableArray * _mainDeck;
+    
+    /**
+     An array containing the cards in the discard pile.
+     */
     NSMutableArray * _discardPile;
+    
 }
 
 
-//  Initialization method
-
-- (PGCardsDeck *)init {
+- (instancetype)init
+{
     if ( (self = [super init]) ) {
         _mainDeck = [NSMutableArray new];
         _discardPile = [NSMutableArray new];
@@ -32,21 +46,20 @@
 }
 
 
-//  Public methods for returning number of cards in main deck and discard pile
-
-- (NSUInteger)size {
+- (NSUInteger)size
+{
     return [_mainDeck count];
 }
 
 
-- (NSUInteger)discardPileSize {
+- (NSUInteger)discardPileSize
+{
     return [_discardPile count];
 }
 
 
-//  Public method to shuffle deck
-
-- (void)shuffle {
+- (void)shuffle
+{
     NSUInteger deckSize = [_mainDeck count];
 
     for ( NSUInteger fromIndex = 0; fromIndex < deckSize; ++fromIndex ) {
@@ -57,12 +70,8 @@
 }
 
 
-//  Public methods for drawing top card, and drawing a number of cards from the top.
-//  The drawn cards are removed from the deck. drawTopCards: may return fewer cards
-//  than requested if fewer cards are available in the deck. The count of the returned
-//  array can be checked.
-
-- (PGCardsCard *)drawTopCard {
+- (PGCardsCard *)drawTopCard
+{
     PGCardsCard * topCard = [_mainDeck lastObject];
 
     if ( topCard ) {
@@ -73,9 +82,10 @@
 }
 
 
-- (NSMutableArray *)drawTopCards:(int)numCards {
+- (NSMutableArray *)drawTopCards:(int)numCards
+{
     PGCardsCard * card;
-    NSMutableArray * drawnCards = [[NSMutableArray alloc] init];
+    NSMutableArray * drawnCards = [NSMutableArray new];
 
     while ( numCards-- && (card = [_mainDeck lastObject]) ) {
         [drawnCards addObject:card];
@@ -86,15 +96,14 @@
 }
 
 
-//  Public methods to add cards to the discard pile, and to replace discards back in the main deck.
-//  NOTE: in addCardsToDiscards:, the supplied array is modified, and emptied of the cards it contained.
-
-- (void)addCardToDiscards:(PGCardsCard *)card {
+- (void)addCardToDiscards:(PGCardsCard *)card
+{
     [_discardPile addObject:card];
 }
 
 
-- (void)addCardsToDiscards:(NSMutableArray *)cards {
+- (void)addCardsToDiscards:(NSMutableArray *)cards
+{
     for ( id array_object in cards ) {
         if ( ![array_object isMemberOfClass:[PGCardsCard class]] ) {
             assert(0);
@@ -106,7 +115,8 @@
 }
 
 
-- (void)replaceDiscards {
+- (void)replaceDiscards
+{
     [_mainDeck addObjectsFromArray:_discardPile];
     [_discardPile removeAllObjects];
 }
