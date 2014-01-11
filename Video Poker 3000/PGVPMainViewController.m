@@ -12,11 +12,12 @@
 
 
 #import "PGVPMainViewController.h"
-#import "PGVPFiveCardHand.h"
-#import "PGVPStatusView.h"
-#import "PGVPCashView.h"
-#import "PGVPBetView.h"
 #import "PGCardsPokerTable.h"
+#import "PGVPBannerView.h"
+#import "PGVPFiveCardHand.h"
+#import "PGVPMoneyView.h"
+#import "PGVPStatusView.h"
+#import "PGVPMainButtonView.h"
 #import "PGVPPayoutTableView.h"
 
 
@@ -101,7 +102,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     /**
      The main banner image view.
      */
-    UIImageView * _banner;
+    PGVPBannerView * _banner;
     
     /**
      The card hand view.
@@ -111,12 +112,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     /**
      The current cash view.
      */
-    PGVPCashView * _cashView;
-    
-    /**
-     The current bet view.
-     */
-    PGVPBetView * _betView;
+    PGVPMoneyView * _moneyView;
     
     /**
      The game status view.
@@ -126,7 +122,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     /**
      The main button view.
      */
-    UIButton * _dealButton;
+    PGVPMainButtonView * _dealButton;
     
     /**
      The payout table.
@@ -165,7 +161,6 @@ static const CGFloat kPGVPBottomMargin = 15;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.view.backgroundColor = [UIColor whiteColor];        
     }
     return self;
 }
@@ -176,105 +171,63 @@ static const CGFloat kPGVPBottomMargin = 15;
     [super viewDidLoad];
     
     
-    //  Poker machine
-    
+    //  Set instance variables and background color
+
+    self.view.backgroundColor = [UIColor whiteColor];
+    _dealt = NO;
     _pokerMachine = [PGCardsPokerTable new];
     
     
-    //  Banner
+    //  Create sub views
     
-    _banner = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner"]];
-    _banner.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_banner];
-    
-    
-    //  Poker hand
-    
+    _banner = [PGVPBannerView createBanner];
     _hand = [PGVPFiveCardHand objectWithFrame:CGRectMake(15, 137, 290, 71) andMachineDelegate:_pokerMachine andNotifyDelegate:self];
-    [self.view addSubview:_hand];
-    
-    
-    //  Bet label
-    
-    _betView = [PGVPBetView objectWithAmount:_pokerMachine.currentBet];
-    [self.view addSubview:_betView];
-    
- 
-    //  Cash label
-    
-    _cashView = [PGVPCashView objectWithAmount:_pokerMachine.currentCash];
-    [self.view addSubview:_cashView];
-    
-    
-    //  Status view
-    
+    _moneyView = [PGVPMoneyView objectWithBet:_pokerMachine.currentBet andCash:_pokerMachine.currentCash];
     _statusView = [PGVPStatusView objectWithStatus:@"Welcome to Video Poker! Deal your first hand to begin."];
-    [self.view addSubview:_statusView];
-    
-    
-    //  Main button container
-    
-    UIView * buttonContainer = [UIView new];
-    buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
-    buttonContainer.layer.borderColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1].CGColor;
-    buttonContainer.layer.borderWidth = 1;
-    buttonContainer.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:buttonContainer];
-    
-    //  Main button
-    
-    _dealButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_dealButton setTitle:@"Deal cards!" forState:UIControlStateNormal];
-    _dealButton.titleLabel.font = [UIFont systemFontOfSize:24];
-    [_dealButton sizeToFit];
-    [_dealButton addTarget:self action:@selector(mainButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    _dealButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [buttonContainer addSubview:_dealButton];
-    _dealt = NO;
-    
-    
-    //  Payout table
-    
+    _dealButton = [PGVPMainButtonView objectWithTarget:self andAction:@selector(mainButtonAction:)];
     _payoutTable = [[PGVPPayoutTableView alloc] initWithDelegate:_pokerMachine];
+    
+    
+    //  Add sub views
+    
+    [self.view addSubview:_banner];
+    [self.view addSubview:_hand];
+    [self.view addSubview:_moneyView];
+    [self.view addSubview:_statusView];
+    [self.view addSubview:_dealButton];
     [self.view addSubview:_payoutTable];
     
     
-    //  Autolayout constraints
-    
+    //  Horizontally layout sub views
+   
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+
+    for ( UIView * currentView in @[_moneyView, _statusView, _dealButton, _payoutTable] ) {
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:currentView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:currentView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    }
+    
+    
+    //  Vertically layout sub views
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:kPGVPStatusBarHeight]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_banner attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [_hand addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:290]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeRight multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_cashView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_cashView attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_betView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_cashView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_moneyView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
 
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_betView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_moneyView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeTop multiplier:1 constant:-kPGVPVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeTop multiplier:1 constant:-kPGVPVertSep]];
     
-    [buttonContainer addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:buttonContainer attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [buttonContainer addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:buttonContainer attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    
-    NSLayoutConstraint * butContHeight = [NSLayoutConstraint constraintWithItem:buttonContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:Nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:10000];
+    NSLayoutConstraint * butContHeight = [NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:Nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:10000];
     butContHeight.priority = 1;
-    [buttonContainer addConstraint:butContHeight];
+    [_dealButton addConstraint:butContHeight];
     
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:-kPGVPBottomMargin]];
 
     
@@ -284,7 +237,7 @@ static const CGFloat kPGVPBottomMargin = 15;
 - (void)enableHandView:(BOOL)handStatus andBetView:(BOOL)betStatus
 {
     [_hand enable:handStatus];
-    [_betView enable:betStatus];
+    [_moneyView enable:betStatus];
 }
 
 
@@ -299,13 +252,12 @@ static const CGFloat kPGVPBottomMargin = 15;
 {
     //  Now that animations are complete, update button, status and labels.
     
-    [_dealButton setTitle:_buttonText forState:UIControlStateNormal];
-    [_dealButton sizeToFit];
+    [_dealButton setText:_buttonText];
     
     [_statusView setStatusText:_statusText];
     
-    [_cashView setAmount:_pokerMachine.currentCash];
-    [_betView setAmount:_pokerMachine.currentBet];
+    [_moneyView setCashAmount:_pokerMachine.currentCash];
+    [_moneyView setBetAmount:_pokerMachine.currentBet];
 }
 
 
