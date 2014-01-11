@@ -1,5 +1,5 @@
 /*
- *  PGCardsPokerHand.h
+ *  PGCardsPokerHand.m
  *  ==================
  *  Copyright 2014 Paul Griffiths
  *  Email: mail@paulgriffiths.net
