@@ -19,7 +19,7 @@
 
 + (id)createBanner
 {
-    return [[PGVPBannerView alloc] initWithImage:[UIImage imageNamed:@"banner"]];
+    return [[PGVPBannerView alloc] initWithImage:[UIImage imageNamed:@"vp_banner"]];
 }
 
 
