@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface PGVPCardInfo : NSObject
 
 /**

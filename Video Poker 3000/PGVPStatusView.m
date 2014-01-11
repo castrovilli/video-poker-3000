@@ -56,6 +56,14 @@ static const CGFloat kPGVPResultsMargin = 5;
         
         //  Autolayout constraints
         
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                         attribute:NSLayoutAttributeHeight
+                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                            toItem:nil
+                                                         attribute:NSLayoutAttributeNotAnAttribute
+                                                        multiplier:0
+                                                          constant:40]];
+        
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_statusLabel
                                                          attribute:NSLayoutAttributeCenterX
                                                          relatedBy:NSLayoutRelationEqual

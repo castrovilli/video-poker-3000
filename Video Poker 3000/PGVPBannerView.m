@@ -1,12 +1,18 @@
-//
-//  PGVPBannerView.m
-//  Video Poker 3000
-//
-//  Created by Paul Griffiths on 1/11/14.
-//  Copyright (c) 2014 Paul Griffiths. All rights reserved.
-//
+/*
+ *  PGVPBannerView.m
+ *  ================
+ *  Copyright 2014 Paul Griffiths
+ *  Email: mail@paulgriffiths.net
+ *
+ *  Implementation of class to contain the main game banner.
+ *
+ *  Distributed under the terms of the GNU General Public License.
+ *  http://www.gnu.org/licenses/
+ */
+
 
 #import "PGVPBannerView.h"
+
 
 @implementation PGVPBannerView
 
@@ -15,6 +21,7 @@
 {
     return [[PGVPBannerView alloc] initWithImage:[UIImage imageNamed:@"banner"]];
 }
+
 
 - (id)initWithImage:(UIImage *)image
 {

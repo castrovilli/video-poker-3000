@@ -27,16 +27,6 @@
 static const CGFloat kPGVPStatusBarHeight = 20;
 
 /**
- The height of the vertical separation between certain views.
- */
-static const CGFloat kPGVPTopVertSep = 15;
-
-/**
- The height of vertical separate between UI elements.
- */
-static const CGFloat kPGVPVertSep = 7;
-
-/**
  Bottom margin.
  */
 static const CGFloat kPGVPBottomMargin = 15;
@@ -128,6 +118,11 @@ static const CGFloat kPGVPBottomMargin = 15;
      The payout table.
      */
     PGVPPayoutTableView * _payoutTable;
+    
+    /**
+     An array of spacer views.
+     */
+    NSArray * _spacerViews;
 
     /**
      A flag set to @c YES if there is a currently dealt hand, and to @c NO if
@@ -200,6 +195,8 @@ static const CGFloat kPGVPBottomMargin = 15;
     
     //  Horizontally layout sub views
    
+    [_hand addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:290]];
+    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
 
@@ -209,27 +206,46 @@ static const CGFloat kPGVPBottomMargin = 15;
     }
     
     
-    //  Vertically layout sub views
+    //  Vertically layout top and bottom sub views against root view
     
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_banner attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:kPGVPStatusBarHeight]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_banner attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-    [_hand addConstraint:[NSLayoutConstraint constraintWithItem:_hand attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:290]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_moneyView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_hand attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_statusView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_moneyView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_statusView attribute:NSLayoutAttributeBottom multiplier:1 constant:kPGVPVertSep]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeTop multiplier:1 constant:-kPGVPVertSep]];
-    
-    NSLayoutConstraint * butContHeight = [NSLayoutConstraint constraintWithItem:_dealButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:Nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:10000];
-    butContHeight.priority = 1;
-    [_dealButton addConstraint:butContHeight];
-    
-    
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_payoutTable attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:-kPGVPBottomMargin]];
 
+    
+    //  Create spacer views and add constraints between UI views
+    
+    NSArray * views = @[_banner, _hand, _moneyView, _statusView, _dealButton, _payoutTable];
+    int numViews = views.count;
+    NSMutableArray * spaces = [NSMutableArray new];
+    
+    for ( int i = 0; i < (numViews - 1); ++i ) {
+        UIView * upperView = views[i];
+        UIView * lowerView = views[i+1];
+        UIView * spacerView = [UIView new];
+        spacerView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:spacerView];
+        [spaces addObject:spacerView];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:upperView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:spacerView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:lowerView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:spacerView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    }
+    
+    _spacerViews = [NSArray arrayWithArray:spaces];
+    
+    
+    //  Set constraints to equalize and maximize height of spacer views
+    
+    for ( int i = 0; i < (numViews - 1); ++i ) {
+        if ( i < (numViews - 2) ) {
+            NSLayoutConstraint * equalSpace = [NSLayoutConstraint constraintWithItem:spaces[i] attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:spaces[i+1] attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+            equalSpace.priority = 5;
+            [self.view addConstraint:equalSpace];
+        }
+      
+        NSLayoutConstraint * maximumHeight = [NSLayoutConstraint constraintWithItem:spaces[i] attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:10000];
+        maximumHeight.priority = 4;
+        [spaces[i] addConstraint:maximumHeight];
+    }
     
 }
 
@@ -355,5 +371,6 @@ static const CGFloat kPGVPBottomMargin = 15;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
