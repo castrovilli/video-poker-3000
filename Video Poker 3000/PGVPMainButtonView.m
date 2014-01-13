@@ -77,4 +77,10 @@
 }
 
 
+- (void)enable:(BOOL)status
+{
+    self.userInteractionEnabled = status;
+}
+
+
 @end

@@ -22,4 +22,14 @@
  */
 - (void)cardsAllChangedAndAnimationsComplete;
 
+/**
+ Message to be sent by a delegee when the bet view has been touched.
+ */
+- (void)betViewTouched;
+
+/**
+ Message to be sent when a bet picker value has changed.
+ */
+- (void)betPickerSelectionChangedWithIndex:(NSInteger)index andValue:(int)value;
+
 @end

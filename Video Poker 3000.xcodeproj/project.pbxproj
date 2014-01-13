@@ -58,6 +58,7 @@
 		DAF5B15B1883517900C7A08B /* PGVPCancelDoneNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B15A1883517900C7A08B /* PGVPCancelDoneNavBar.m */; };
 		DAF5B15F188359B900C7A08B /* PGVPCardBackSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B15E188359B900C7A08B /* PGVPCardBackSetting.m */; };
 		DAF5B16218835D0900C7A08B /* PGVPPayoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B16118835D0900C7A08B /* PGVPPayoutSetting.m */; };
+		DAF5B16718837C7D00C7A08B /* PGVPBetPickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B16618837C7D00C7A08B /* PGVPBetPickerDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,8 @@
 		DAF5B16018835D0900C7A08B /* PGVPPayoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPPayoutSetting.h; sourceTree = "<group>"; };
 		DAF5B16118835D0900C7A08B /* PGVPPayoutSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPPayoutSetting.m; sourceTree = "<group>"; };
 		DAF5B16318836CF100C7A08B /* PGVPSettingsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPSettingsViewControllerDelegate.h; sourceTree = "<group>"; };
+		DAF5B16518837C7D00C7A08B /* PGVPBetPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPBetPickerDelegate.h; sourceTree = "<group>"; };
+		DAF5B16618837C7D00C7A08B /* PGVPBetPickerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPBetPickerDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +274,8 @@
 			children = (
 				DAB274C81878EC6C0039732C /* PGVPMainViewController.h */,
 				DAB274C91878EC6C0039732C /* PGVPMainViewController.m */,
+				DAF5B16518837C7D00C7A08B /* PGVPBetPickerDelegate.h */,
+				DAF5B16618837C7D00C7A08B /* PGVPBetPickerDelegate.m */,
 				DAF5B1501881DE0A00C7A08B /* PGVPBannerView.h */,
 				DAF5B1511881DE0A00C7A08B /* PGVPBannerView.m */,
 				DAB274CF1878F72F0039732C /* PGVPFiveCardHand.h */,
@@ -442,6 +447,7 @@
 				DAB274DB1879163B0039732C /* PGVPBetView.m in Sources */,
 				DAB274D718790D240039732C /* PGVPCashView.m in Sources */,
 				DAB274B31878EBB00039732C /* PGCardsDeck.m in Sources */,
+				DAF5B16718837C7D00C7A08B /* PGVPBetPickerDelegate.m in Sources */,
 				DAF5B16218835D0900C7A08B /* PGVPPayoutSetting.m in Sources */,
 				DAF5B14A187F766700C7A08B /* PGVPPayoutLineView.m in Sources */,
 				DAB274B91878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */,

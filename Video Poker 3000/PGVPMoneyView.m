@@ -20,23 +20,25 @@
 {
     PGVPBetView * _betView;
     PGVPCashView * _cashView;
+    id<PGVPPokerViewControllerDelegate> _delegate;
 }
 
 
-+ (id)objectWithBet:(int)bet andCash:(int)cash
++ (id)objectWithBet:(int)bet andCash:(int)cash andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate
 {
-    return [[PGVPMoneyView alloc] initWithBet:bet andCash:cash];
+    return [[PGVPMoneyView alloc] initWithBet:bet andCash:cash andDelegate:delegate];
 }
 
 
-- (instancetype)initWithBet:(int)bet andCash:(int)cash
+- (instancetype)initWithBet:(int)bet andCash:(int)cash andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate
 {
     self = [super init];
     if ( self ) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
-        _betView = [PGVPBetView objectWithAmount:bet];
+        _betView = [PGVPBetView objectWithAmount:bet andDelegate:delegate];
         _cashView = [PGVPCashView objectWithAmount:cash];
+        _delegate = delegate;
         
         [self addSubview:_betView];
         [self addSubview:_cashView];

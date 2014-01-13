@@ -38,4 +38,10 @@
  */
 - (void)setText:(NSString *)newText;
 
+/**
+ Enables and disables user interaction with the view.
+ @param status @c YES to enable, @c NO to disable.
+ */
+- (void)enable:(BOOL)status;
+
 @end

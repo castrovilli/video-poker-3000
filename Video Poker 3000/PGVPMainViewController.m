@@ -21,6 +21,7 @@
 #import "PGVPMainButtonView.h"
 #import "PGVPPayoutTableView.h"
 #import "PGVPSettingsViewController.h"
+#import "PGVPBetPickerDelegate.h"
 
 
 /**
@@ -130,6 +131,22 @@ static const CGFloat kPGVPBottomMargin = 15;
      An array of spacer views.
      */
     NSArray * _spacerViews;
+    
+    /**
+     Bet picket view and datsource/delegate object.
+     */
+    PGVPBetPickerDelegate * _betDelegate;
+    UIPickerView * _betPicker;
+    
+    /**
+     Index of bet choice.
+     */
+    int _betChoice;
+    
+    /**
+     Status variable for showing bet picker.
+     */
+    BOOL _showBetPicker;
 
     /**
      A flag set to @c YES if there is a currently dealt hand, and to @c NO if
@@ -184,13 +201,15 @@ static const CGFloat kPGVPBottomMargin = 15;
     _dealt = NO;
     _pokerMachine = [PGCardsPokerTable new];
     _cardBackOption = CARDBACKS_CHOICE_BLUE;
+    _showBetPicker = NO;
+    _betChoice = 3;
     
     
     //  Create sub views
     
     _banner = [PGVPBannerView createBanner];
     _hand = [PGVPFiveCardHand objectWithFrame:CGRectMake(15, 137, 290, 71) andMachineDelegate:_pokerMachine andNotifyDelegate:self];
-    _moneyView = [PGVPMoneyView objectWithBet:_pokerMachine.currentBet andCash:_pokerMachine.currentCash];
+    _moneyView = [PGVPMoneyView objectWithBet:_pokerMachine.currentBet andCash:_pokerMachine.currentCash andDelegate:self];
     _statusView = [PGVPStatusView objectWithStatus:@"Welcome to Video Poker! Deal your first hand to begin."];
     _dealButton = [PGVPMainButtonView objectWithTarget:self andAction:@selector(mainButtonAction:)];
     _payoutTable = [[PGVPPayoutTableView alloc] initWithDelegate:_pokerMachine];
@@ -205,11 +224,11 @@ static const CGFloat kPGVPBottomMargin = 15;
     
     [self.view addSubview:_banner];
     [self.view addSubview:_hand];
-    [self.view addSubview:_moneyView];
     [self.view addSubview:_statusView];
     [self.view addSubview:_dealButton];
     [self.view addSubview:_payoutTable];
     [self.view addSubview:_settingsButton];
+    [self.view addSubview:_moneyView];
     
     
     //  Horizontally layout sub views
@@ -272,6 +291,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_settingsButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeRight multiplier:1 constant:-10]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_settingsButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeBottom multiplier:1 constant:-10]];
     
+    [self enableHandView:NO andBetView:YES];
 }
 
 
@@ -281,6 +301,11 @@ static const CGFloat kPGVPBottomMargin = 15;
     [_moneyView enable:betStatus];
 }
 
+
+- (void)enableDealButton:(BOOL)buttonStatus
+{
+    [_dealButton enable:buttonStatus];
+}
 
 - (void)updateButtonTitle:(NSString *)newTitle andStatus:(NSString *)newStatus
 {
@@ -411,6 +436,43 @@ static const CGFloat kPGVPBottomMargin = 15;
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)betViewTouched
+{
+    if ( !_showBetPicker ) {
+        _showBetPicker = YES;
+        [self enableDealButton:NO];
+        
+        _betDelegate = [PGVPBetPickerDelegate new];
+        _betDelegate.delegate = self;
+        _betPicker = [UIPickerView new];
+        _betPicker.delegate = _betDelegate;
+        _betPicker.dataSource = _betDelegate;
+        _betPicker.backgroundColor = [UIColor whiteColor];
+        [_betPicker selectRow:_betChoice inComponent:0 animated:NO];
+        
+        CGRect pickerFrame = _betPicker.frame;
+        pickerFrame.origin.y = _moneyView.frame.origin.y + _moneyView.frame.size.height;
+        _betPicker.frame = pickerFrame;
+        [self.view addSubview:_betPicker];
+    } else {
+        _showBetPicker = NO;
+        
+        [_betPicker removeFromSuperview];
+        [self enableDealButton:YES];
+   }
+
+}
+
+
+- (void)betPickerSelectionChangedWithIndex:(NSInteger)index andValue:(int)value
+{
+    [_moneyView setBetAmount:value];
+    _pokerMachine.currentBet = value;
+    _betChoice = index;
+    
 }
 
 

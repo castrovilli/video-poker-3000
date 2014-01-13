@@ -12,23 +12,24 @@
 
 
 #import <UIKit/UIKit.h>
+#import "PGVPPokerViewControllerDelegate.h"
 
 
-@interface PGVPBetView : UIView <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface PGVPBetView : UIView
 
 /**
  Returns an object created with a specified bet amount.
  @param amount The bet amount.
  @return An object created with the specified bet amount.
  */
-+ (id)objectWithAmount:(int)amount;
++ (id)objectWithAmount:(int)amount andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate;
 
 /**
  Returns an object initialized with a specified bet amount.
  @param amount The bet amount.
  @return An object initialized with the specified bet amount.
  */
-- (id)initWithFrame:(CGRect)frame andAmount:(int)amount;
+- (id)initWithFrame:(CGRect)frame andAmount:(int)amount andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate;
 
 /**
  Enables or disables the view.

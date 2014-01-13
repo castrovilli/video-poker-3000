@@ -12,6 +12,7 @@
 
 
 #import "PGVPBetView.h"
+#import "PGVPBetPickerDelegate.h"
 
 
 /**
@@ -30,7 +31,8 @@ static const CGFloat kPGVPSideMargin = 20;
 @end
 
 
-@implementation PGVPBetView {
+@implementation PGVPBetView
+{
     /**
      Label to contain the title.
      */
@@ -42,57 +44,25 @@ static const CGFloat kPGVPSideMargin = 20;
     UILabel * _amountLabel;
     
     /**
-     Picker to contain bet choices.
+     Delegate.
      */
-    UIPickerView * _betPicker;
-    
-    /**
-     Array of bet choices for picker view.
-     */
-    NSArray * _betAmounts;
-    
-    NSArray * _betAmountViews;
-    
-    CGFloat _betComponentWidth;
-    CGFloat _betComponentHeight;
+    id<PGVPPokerViewControllerDelegate> _delegate;
 }
 
 
-+ (id)objectWithAmount:(int)amount
++ (id)objectWithAmount:(int)amount andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate
 {
-    return [[PGVPBetView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andAmount:amount];
+    return [[PGVPBetView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andAmount:amount andDelegate:delegate];
 }
 
 
 
-- (id)initWithFrame:(CGRect)frame andAmount:(int)amount
+- (id)initWithFrame:(CGRect)frame andAmount:(int)amount andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        /*
-         
-        _betAmounts = @[@"$1", @"$5", @"$10", @"$20", @"$50", @"$100", @"$200", @"$500", @"$1,000"];
-        
-        _betComponentWidth = 0;
-        _betComponentHeight = 0;
-        NSMutableArray * amountViews = [NSMutableArray new];
-        for ( NSString * betText in _betAmounts ) {
-            UILabel * betLabel = [UILabel new];
-            betLabel.text = betText;
-            [betLabel sizeToFit];
-            [amountViews addObject:betLabel];
-            if ( betLabel.frame.size.width > _betComponentWidth ) {
-                _betComponentWidth = betLabel.frame.size.width;
-            }
-            if ( betLabel.frame.size.height > _betComponentHeight ) {
-                _betComponentHeight = betLabel.frame.size.height;
-            }
-        }
-        _betAmountViews = [NSArray arrayWithArray:amountViews];
-        
-         */
+        _delegate = delegate;
         
         _titleLabel = [UILabel new];
         _titleLabel.text = @"Bet:";
@@ -106,17 +76,6 @@ static const CGFloat kPGVPSideMargin = 20;
         _amountLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_amountLabel];
         
-        /*
-        _betPicker = [UIPickerView new];
-        _betPicker.dataSource = self;
-        _betPicker.delegate = self;
-        _betPicker.showsSelectionIndicator = YES;
-        [_betPicker selectRow:4 inComponent:0 animated:NO];
-        _betPicker.translatesAutoresizingMaskIntoConstraints = NO;
-        [_betPicker sizeToFit];
-        [self addSubview:_betPicker];
-        */
-        
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
         NSLayoutConstraint * constraint = [NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
         constraint.priority = 999;
@@ -129,13 +88,19 @@ static const CGFloat kPGVPSideMargin = 20;
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeBaseline relatedBy:NSLayoutRelationEqual toItem:_amountLabel attribute:NSLayoutAttributeBaseline multiplier:1 constant:0]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationLessThanOrEqual toItem:_amountLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-kPGVPSideMargin]];
-        /*
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_betPicker attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_betPicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_amountLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-        */
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                               action:@selector(showHidePicker)];
+        [self addGestureRecognizer:tap];
         
     }
     return self;
+}
+
+
+- (void)showHidePicker
+{    
+    [_delegate betViewTouched];
 }
 
 
@@ -143,7 +108,7 @@ static const CGFloat kPGVPSideMargin = 20;
 {
     CGSize intrinsicSize;
     intrinsicSize.width = _titleLabel.bounds.size.width + _amountLabel.bounds.size.width + kPGVPSideMargin;
-    intrinsicSize.height = ((_titleLabel.bounds.size.height >= _amountLabel.bounds.size.height) ? _titleLabel.bounds.size.height : _amountLabel.bounds.size.height) + _betPicker.bounds.size.height;
+    intrinsicSize.height = ((_titleLabel.bounds.size.height >= _amountLabel.bounds.size.height) ? _titleLabel.bounds.size.height : _amountLabel.bounds.size.height);
     return intrinsicSize;
 }
 
@@ -169,33 +134,4 @@ static const CGFloat kPGVPSideMargin = 20;
 }
 
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return _betAmountViews.count;
-}
-
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    return _betComponentHeight;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-    return _betComponentWidth;
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    return _betAmountViews[row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    
-}
 @end

@@ -12,6 +12,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "PGVPPokerViewControllerDelegate.h"
 
 
 @interface PGVPMoneyView : UIView
@@ -23,7 +24,7 @@
  @param cash The cash amount.
  @return An object created with the specified bet and cash amount.
  */
-+ (id)objectWithBet:(int)bet andCash:(int)cash;
++ (id)objectWithBet:(int)bet andCash:(int)cash andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate;
 
 /**
  Returns an object initialized with a specified bet and cash amount.
@@ -31,7 +32,7 @@
  @param cash The cash amount.
  @return An object initialized with the specified bet and cash amount.
  */
-- (instancetype)initWithBet:(int)bet andCash:(int)cash;
+- (instancetype)initWithBet:(int)bet andCash:(int)cash andDelegate:(id<PGVPPokerViewControllerDelegate>)delegate;
 
 /**
  Sets the bet amount.
