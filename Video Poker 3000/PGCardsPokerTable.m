@@ -24,9 +24,21 @@
 static const int kPGCardsBetInitialValue = 50;
 
 /**
+ Initial bet index value.
+ */
+static const int kPGCardsBetIndexInitialValue = 5;
+
+/**
  Initial cash value.
  */
 static const int kPGCardsCashInitialValue = 1000;
+
+/**
+ Array of allowable bets.
+ */
+static const int kPGCardsBets[] = {1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000,
+                                   20000, 50000, 100000, 200000, 500000, 1000000, 2000000,
+                                   5000000, 10000000, 20000000, 50000000, 100000000};
 
 
 @interface PGCardsPokerTable ()
@@ -111,7 +123,7 @@ static const int kPGCardsCashInitialValue = 1000;
      The flipped status of the cards in the hand, @c YES for flipped, @c NO otherwise.
      */
     BOOL _flipped[5];
-     
+    
 }
 
 
@@ -123,6 +135,7 @@ static const int kPGCardsCashInitialValue = 1000;
     if ( (self = [super init]) ) {
         _deck = [PGCardsDeck new];
         _hand = [PGCardsPokerHand new];
+        _betIndex = kPGCardsBetIndexInitialValue;
         
         [self setGameState:POKER_GAMESTATE_INITIAL];
         [self resetBetAndCashToInitialValues];
@@ -334,15 +347,43 @@ static const int kPGCardsCashInitialValue = 1000;
 }
 
 
-- (int)getCurrentBet
-{
-    return _currentBet;
-}
-
-
 - (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType
 {
     return [self getPayoutRatioForHand:handType withType:self.payoutOption];
+}
+
+
+- (int)getBetForIndex:(int)index
+{
+    static const int numBets = sizeof(kPGCardsBets) / sizeof(kPGCardsBets[0]);
+    
+    if ( index < 0 || index >= numBets ) {
+        [NSException raise:@"PGCardsPokerTable" format:@"Invalid index for getBetForIndex:"];
+    }
+    return kPGCardsBets[index];
+}
+
+
+- (int)numberOfAvailableBets
+{
+    return sizeof(kPGCardsBets) / sizeof(kPGCardsBets[0]);
+}
+
+
+- (int)getHighestAvailableBetIndex
+{
+    static const int numBets = sizeof(kPGCardsBets) / sizeof(kPGCardsBets[0]);
+    int highest = 0;
+    
+    for ( int i = 0; i < numBets; ++i ) {
+        if ( kPGCardsBets[i] <= _currentCash ) {
+            highest = i;
+        } else {
+            break;
+        }
+    }
+    
+    return highest;
 }
 
 
@@ -391,13 +432,13 @@ static const int kPGCardsCashInitialValue = 1000;
 
 - (void)deductBetFromPot
 {
-    _currentCash -= self.currentBet;
+    _currentCash -= [self getBetForIndex:_betIndex];
 }
 
 
 - (void)resetBetAndCashToInitialValues
 {
-    _currentBet = kPGCardsBetInitialValue;
+    _betIndex = kPGCardsBetIndexInitialValue;
     _currentCash = kPGCardsCashInitialValue;
 }
 
@@ -410,10 +451,10 @@ static const int kPGCardsCashInitialValue = 1000;
 
 - (void)updateCashAndBetWithWinRatio:(int)winRatio
 {
-    _currentCash += winRatio * _currentBet;
+    _currentCash += winRatio * [self getBetForIndex:_betIndex];
     
-    if ( _currentBet > _currentCash ) {
-        _currentBet = _currentCash;
+    if ( [self getBetForIndex:_betIndex] > _currentCash ) {
+        _betIndex = [self getHighestAvailableBetIndex];
     }
 }
 
@@ -426,7 +467,7 @@ static const int kPGCardsCashInitialValue = 1000;
         NSNumberFormatter * nf = [NSNumberFormatter new];
         nf.numberStyle = NSNumberFormatterDecimalStyle;
         winLoseString = [NSString stringWithFormat:@"You win $%@!",
-                         [nf stringFromNumber:[NSNumber numberWithInt:winRatio * _currentBet]]];
+                         [nf stringFromNumber:[NSNumber numberWithInt:winRatio * [self getBetForIndex:_betIndex]]]];
     } else {
         winLoseString = @"Better luck next time!";
     }

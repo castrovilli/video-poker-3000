@@ -44,16 +44,30 @@
 - (int)getCurrentCash;
 
 /**
- Returns the current bet.
- @return The current bet.
- */
-- (int)getCurrentBet;
-
-/**
  Gets the payout ratio for the specified hand, using the currently selected payout option.
  @param handType The hand type.
  @return The payout ratio for the specified hand type.
  */
 - (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType;
+
+/**
+ Returns the number of available bets.
+ @return The number of available bets.
+ */
+- (int)numberOfAvailableBets;
+
+/**
+ Returns the allowable bet for a given index.
+ @param index The index.
+ @return The allowable bet for the given index.
+ */
+- (int)getBetForIndex:(int)index;
+
+/**
+ Returns the highest bet index representing a bet less than or equal
+ to the current available cash.
+ @return The highest available bet index.
+ */
+- (int)getHighestAvailableBetIndex;
 
 @end

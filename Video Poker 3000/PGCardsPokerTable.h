@@ -48,9 +48,9 @@ enum PGCardsPokerGameState {
 @property (assign, nonatomic, readonly) int currentCash;
 
 /**
- The current bet.
+ The current bet index.
  */
-@property (assign, nonatomic, readwrite) int currentBet;
+@property (assign, nonatomic, readwrite) int betIndex;
 
 /**
  The selected payout option, or difficulty level.
@@ -74,6 +74,5 @@ enum PGCardsPokerGameState {
  @return The payout ratio for the specified hand type and payout option.
  */
 - (int)getPayoutRatioForHand:(enum PGCardsVideoPokerHandType)handType withType:(enum PayoutChoiceOptions)payoutOption;
-
 
 @end

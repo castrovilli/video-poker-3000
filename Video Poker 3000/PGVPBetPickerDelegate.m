@@ -11,17 +11,31 @@
 @implementation PGVPBetPickerDelegate
 {
     NSArray * _betAmounts;
-    NSArray * _betValues;
+}
+
++ (id)objectWithControllerDelegate:(id<PGVPPokerViewControllerDelegate>)controllerDelegate andMachineDelegate:(id<PGVPPokerMachineDelegate>)machineDelegate
+{
+    return [[PGVPBetPickerDelegate alloc] initWithControllerDelegate:controllerDelegate
+                                                  andMachineDelegate:machineDelegate];
 }
 
 
-- (id)init
+- (id)initWithControllerDelegate:(id<PGVPPokerViewControllerDelegate>)controllerDelegate andMachineDelegate:(id<PGVPPokerMachineDelegate>)machineDelegate
 {
     self = [super init];
     if ( self ) {
-        _betAmounts = @[@"$5", @"$10", @"$20", @"$50", @"$100", @"$200", @"$500",
-                        @"$1,000", @"$2,000", @"$5,000", @"$10,000"];
-        _betValues = @[@5, @10, @20, @50, @100, @200, @500, @1000, @2000, @5000, @10000];
+        _controllerDelegate = controllerDelegate;
+        _machineDelegate = machineDelegate;
+        
+        NSMutableArray * betStrings = [NSMutableArray new];
+        const int numBets = [_machineDelegate numberOfAvailableBets];
+        
+        for ( int betIndex = 0; betIndex < numBets; ++betIndex ) {
+            NSString * newAmount = [self formatAmount:[_machineDelegate getBetForIndex:betIndex]];
+            [betStrings addObject:newAmount];
+        }
+        
+        _betAmounts = [NSArray arrayWithArray:betStrings];
     }
     return self;
 }
@@ -40,19 +54,22 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return _betAmounts.count;
+    return [_machineDelegate getHighestAvailableBetIndex] + 1;
+    //return _betAmounts.count;
 }
 
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [_delegate betPickerSelectionChangedWithIndex:row andValue:[_betValues[row] intValue]];
+    [_controllerDelegate betPickerSelectionChangedWithIndex:row];
 }
 
 
-- (int)valueAtSelectedIndex:(NSInteger)index
+- (NSString *)formatAmount:(int)amount
 {
-    return [_betValues[index] intValue];
+    NSNumberFormatter * nf = [NSNumberFormatter new];
+    nf.numberStyle = NSNumberFormatterDecimalStyle;
+    return [NSString stringWithFormat:@"$%@", [nf stringFromNumber:[NSNumber numberWithInt:amount]]];
 }
 
 

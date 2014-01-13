@@ -202,15 +202,16 @@ static const CGFloat kPGVPBottomMargin = 15;
     _pokerMachine = [PGCardsPokerTable new];
     _cardBackOption = CARDBACKS_CHOICE_BLUE;
     _showBetPicker = NO;
-    _betChoice = 3;
+    _betChoice = 5;
     
     
     //  Create sub views
     
     _banner = [PGVPBannerView createBanner];
     _hand = [PGVPFiveCardHand objectWithFrame:CGRectMake(15, 137, 290, 71) andMachineDelegate:_pokerMachine andNotifyDelegate:self];
-    _moneyView = [PGVPMoneyView objectWithBet:_pokerMachine.currentBet andCash:_pokerMachine.currentCash andDelegate:self];
-    _statusView = [PGVPStatusView objectWithStatus:@"Welcome to Video Poker! Deal your first hand to begin."];
+    _moneyView = [PGVPMoneyView objectWithBet:[_pokerMachine getBetForIndex:_pokerMachine.betIndex]
+                                      andCash:_pokerMachine.currentCash andDelegate:self];
+    _statusView = [PGVPStatusView objectWithStatus:@"Welcome to Video Poker! Make your bet and deal your first hand to begin."];
     _dealButton = [PGVPMainButtonView objectWithTarget:self andAction:@selector(mainButtonAction:)];
     _payoutTable = [[PGVPPayoutTableView alloc] initWithDelegate:_pokerMachine];
     
@@ -313,6 +314,13 @@ static const CGFloat kPGVPBottomMargin = 15;
     _statusText = newStatus;
 }
 
+- (void)updateCashAmounts
+{
+    [_moneyView setCashAmount:_pokerMachine.currentCash];
+    [_moneyView setBetAmount:[_pokerMachine getBetForIndex:_pokerMachine.betIndex]];
+   
+}
+
 
 - (void)cardsAllChangedAndAnimationsComplete
 {
@@ -322,8 +330,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     
     [_statusView setStatusText:_statusText];
     
-    [_moneyView setCashAmount:_pokerMachine.currentCash];
-    [_moneyView setBetAmount:_pokerMachine.currentBet];
+    [self updateCashAmounts];
 }
 
 
@@ -388,7 +395,7 @@ static const CGFloat kPGVPBottomMargin = 15;
         //  over since we've run out of cash, so disable both the card view and the bet
         //  view, leaving only the option to start a new game via the main button.
         
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Game over!" message:@"You ran out of cash!" delegate:nil cancelButtonTitle:@"Start New Game" otherButtonTitles:nil];
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Game over!" message:@"You ran out of cash!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alert show];
         
         [self exchangeCards];
@@ -401,9 +408,11 @@ static const CGFloat kPGVPBottomMargin = 15;
         //  to their initial values, disable the card view and enable the bet view.
         
         [self discardCards];
+        [self updateCashAmounts];
         [self enableHandView:NO andBetView:YES];
         [self updateButtonTitle:@"Deal your first hand!"
-                      andStatus:@"Welcome to Video Poker! Deal your first hand to begin."];
+                      andStatus:@"Welcome to Video Poker! Make your bet and deal your first hand to begin."];
+        [self cardsAllChangedAndAnimationsComplete];
         
     } else {
         
@@ -445,13 +454,12 @@ static const CGFloat kPGVPBottomMargin = 15;
         _showBetPicker = YES;
         [self enableDealButton:NO];
         
-        _betDelegate = [PGVPBetPickerDelegate new];
-        _betDelegate.delegate = self;
+        _betDelegate = [PGVPBetPickerDelegate objectWithControllerDelegate:self andMachineDelegate:_pokerMachine];
         _betPicker = [UIPickerView new];
         _betPicker.delegate = _betDelegate;
         _betPicker.dataSource = _betDelegate;
         _betPicker.backgroundColor = [UIColor whiteColor];
-        [_betPicker selectRow:_betChoice inComponent:0 animated:NO];
+        [_betPicker selectRow:_pokerMachine.betIndex inComponent:0 animated:NO];
         
         CGRect pickerFrame = _betPicker.frame;
         pickerFrame.origin.y = _moneyView.frame.origin.y + _moneyView.frame.size.height;
@@ -467,12 +475,11 @@ static const CGFloat kPGVPBottomMargin = 15;
 }
 
 
-- (void)betPickerSelectionChangedWithIndex:(NSInteger)index andValue:(int)value
+- (void)betPickerSelectionChangedWithIndex:(NSInteger)index
 {
-    [_moneyView setBetAmount:value];
-    _pokerMachine.currentBet = value;
+    [_moneyView setBetAmount:[_pokerMachine getBetForIndex:index]];
+    _pokerMachine.betIndex = index;
     _betChoice = index;
-    
 }
 
 

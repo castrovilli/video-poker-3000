@@ -30,6 +30,6 @@
 /**
  Message to be sent when a bet picker value has changed.
  */
-- (void)betPickerSelectionChangedWithIndex:(NSInteger)index andValue:(int)value;
+- (void)betPickerSelectionChangedWithIndex:(NSInteger)index;
 
 @end

@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "PGVPPokerViewControllerDelegate.h"
+#import "PGVPPokerMachineDelegate.h"
 
 @interface PGVPBetPickerDelegate : NSObject <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (weak, nonatomic, readwrite) id<PGVPPokerViewControllerDelegate> delegate;
-- (int)valueAtSelectedIndex:(NSInteger)index;
+@property (weak, nonatomic, readwrite) id<PGVPPokerViewControllerDelegate> controllerDelegate;
+@property (weak, nonatomic, readwrite) id<PGVPPokerMachineDelegate> machineDelegate;
+
++ (id)objectWithControllerDelegate:(id<PGVPPokerViewControllerDelegate>)controllerDelegate andMachineDelegate:(id<PGVPPokerMachineDelegate>)machineDelegate;
+- (id)initWithControllerDelegate:(id<PGVPPokerViewControllerDelegate>)controllerDelegate andMachineDelegate:(id<PGVPPokerMachineDelegate>)machineDelegate;
+
 
 @end
