@@ -135,4 +135,12 @@ static const CGFloat kPGVPInnerMargin = 5;
 }
 
 
+- (void)updatePayoutLabels
+{
+    for ( PGVPPayoutLineView * lineView in _handLabels ) {
+        [lineView updatePayoutLabel];
+    }
+}
+
+
 @end

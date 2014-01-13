@@ -12,6 +12,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "PGVPOptionsTypes.h"
 #import "PGVPCardHandDelegate.h"
 
 
@@ -62,5 +63,11 @@ static const NSTimeInterval kPGVPFlipTransitionTime = 0.25;
  @attention Do not call unless a card has previously been dealt with @c dealCard:faceDown: and not yet discarded.
  */
 - (void)discardCard;
+
+/**
+ Sets the card back color.
+ @param cardBackOption The card back option.
+ */
+- (void)setCardBackColor:(enum CardBacksChoiceOptions)cardBackOption;
 
 @end

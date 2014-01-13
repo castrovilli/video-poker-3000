@@ -208,4 +208,12 @@ static const NSTimeInterval kPGVPRedealDelay = 0.5;
 }
 
 
+- (void)setCardBackColor:(enum CardBacksChoiceOptions)cardBackOption
+{
+    for ( PGVPCardPlace * cardPlace in _cards ) {
+        [cardPlace setCardBackColor:cardBackOption];
+    }
+}
+
+
 @end

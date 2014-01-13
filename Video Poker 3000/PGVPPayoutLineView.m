@@ -26,6 +26,11 @@ static const CGFloat innerMargin = 5;
      The poker machine delegate.
      */
     id<PGVPPokerMachineDelegate> _delegate;
+    
+    /**
+     The hand type for this line.
+     */
+    enum PGCardsVideoPokerHandType _handType;
 }
 
 
@@ -34,6 +39,7 @@ static const CGFloat innerMargin = 5;
     self = [super init];
     if (self) {
         _delegate = delegate;
+        _handType = handType;
         
         NSArray * handNames = @[
                                 @"No Win",
@@ -51,8 +57,8 @@ static const CGFloat innerMargin = 5;
         
         _handLabel = [UILabel new];
         _payoutLabel = [UILabel new];
-        _handLabel.text = handNames[handType];
-        _payoutLabel.text = [NSString stringWithFormat:@"%ix", [_delegate getPayoutRatioForHand:handType]];
+        _handLabel.text = handNames[_handType];
+        _payoutLabel.text = [NSString stringWithFormat:@"%ix", [_delegate getPayoutRatioForHand:_handType]];
         [_handLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
         [_payoutLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
         
@@ -77,6 +83,12 @@ static const CGFloat innerMargin = 5;
         
     }
     return self;
+}
+
+
+- (void)updatePayoutLabel
+{
+    _payoutLabel.text = [NSString stringWithFormat:@"%ix", [_delegate getPayoutRatioForHand:_handType]];
 }
 
 

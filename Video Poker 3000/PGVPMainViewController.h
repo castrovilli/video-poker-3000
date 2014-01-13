@@ -13,8 +13,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PGVPPokerViewControllerDelegate.h"
+#import "PGVPSettingsViewControllerDelegate.h"
 
 
-@interface PGVPMainViewController : UIViewController <PGVPPokerViewControllerDelegate>
+@interface PGVPMainViewController : UIViewController <PGVPPokerViewControllerDelegate, PGVPSettingsViewControllerDelegate>
 
 @end

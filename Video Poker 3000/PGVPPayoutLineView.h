@@ -36,4 +36,9 @@
  */
 - (instancetype)initWithHandType:(enum PGCardsVideoPokerHandType)handType andDelegate:(id<PGVPPokerMachineDelegate>)delegate;
 
+/**
+ Updates the payout label, for instance after a change in difficulty level.
+ */
+- (void)updatePayoutLabel;
+
 @end

@@ -12,6 +12,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "PGVPOptionsTypes.h"
 #import "PGVPPokerMachineDelegate.h"
 #import "PGVPCardHandDelegate.h"
 #import "PGVPPokerViewControllerDelegate.h"
@@ -77,5 +78,11 @@
  Exchanges any cards that the user has flipped.
  */
 - (void)exchangeCards;
+
+/**
+ Sets the card back color.
+ @param cardBackOption The card back option.
+ */
+- (void)setCardBackColor:(enum CardBacksChoiceOptions)cardBackOption;
 
 @end

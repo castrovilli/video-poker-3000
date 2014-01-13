@@ -13,12 +13,14 @@
 
 #import "PGVPMainViewController.h"
 #import "PGCardsPokerTable.h"
+#import "PGVPOptionsTypes.h"
 #import "PGVPBannerView.h"
 #import "PGVPFiveCardHand.h"
 #import "PGVPMoneyView.h"
 #import "PGVPStatusView.h"
 #import "PGVPMainButtonView.h"
 #import "PGVPPayoutTableView.h"
+#import "PGVPSettingsViewController.h"
 
 
 /**
@@ -120,6 +122,11 @@ static const CGFloat kPGVPBottomMargin = 15;
     PGVPPayoutTableView * _payoutTable;
     
     /**
+     A settings button.
+     */
+    UIButton * _settingsButton;
+    
+    /**
      An array of spacer views.
      */
     NSArray * _spacerViews;
@@ -149,6 +156,11 @@ static const CGFloat kPGVPBottomMargin = 15;
      view text is delayed until the card hand view completes its animations.
      */
     NSString * _statusText;
+    
+    /**
+     Card back choice option.
+     */
+    enum CardBacksChoiceOptions _cardBackOption;
 }
 
 
@@ -171,6 +183,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     self.view.backgroundColor = [UIColor whiteColor];
     _dealt = NO;
     _pokerMachine = [PGCardsPokerTable new];
+    _cardBackOption = CARDBACKS_CHOICE_BLUE;
     
     
     //  Create sub views
@@ -182,6 +195,11 @@ static const CGFloat kPGVPBottomMargin = 15;
     _dealButton = [PGVPMainButtonView objectWithTarget:self andAction:@selector(mainButtonAction:)];
     _payoutTable = [[PGVPPayoutTableView alloc] initWithDelegate:_pokerMachine];
     
+    _settingsButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_settingsButton addTarget:self action:@selector(showSettings) forControlEvents:UIControlEventTouchUpInside];
+    [_settingsButton setImage:[UIImage imageNamed:@"settings_icon_small"] forState:UIControlStateNormal];
+    
     
     //  Add sub views
     
@@ -191,6 +209,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     [self.view addSubview:_statusView];
     [self.view addSubview:_dealButton];
     [self.view addSubview:_payoutTable];
+    [self.view addSubview:_settingsButton];
     
     
     //  Horizontally layout sub views
@@ -246,6 +265,12 @@ static const CGFloat kPGVPBottomMargin = 15;
         maximumHeight.priority = 4;
         [spaces[i] addConstraint:maximumHeight];
     }
+    
+    
+    //  Layout settings button
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_settingsButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeRight multiplier:1 constant:-10]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_settingsButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_payoutTable attribute:NSLayoutAttributeBottom multiplier:1 constant:-10]];
     
 }
 
@@ -363,6 +388,29 @@ static const CGFloat kPGVPBottomMargin = 15;
         assert(0);
         
     }
+}
+
+
+- (void)showSettings
+{
+    PGVPSettingsViewController * controller = [PGVPSettingsViewController new];
+    controller.cardBackOption = _cardBackOption;
+    controller.payoutOption = _pokerMachine.payoutOption;
+    controller.delegate = self;
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+
+- (void)dismissWithCancel:(BOOL)didCancel payout:(enum PayoutChoiceOptions)payoutOption cardBack:(enum CardBacksChoiceOptions)cardBack
+{
+    if ( !didCancel ) {
+        _cardBackOption = cardBack;
+        _pokerMachine.payoutOption = payoutOption;
+        [_hand setCardBackColor:cardBack];
+        [_payoutTable updatePayoutLabels];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

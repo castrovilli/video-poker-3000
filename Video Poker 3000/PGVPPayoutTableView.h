@@ -24,4 +24,9 @@
  */
 - (id)initWithDelegate:(id<PGVPPokerMachineDelegate>)delegate;
 
+/**
+ Updates the payout labels, e.g. after a change in difficulty level.
+ */
+- (void)updatePayoutLabels;
+
 @end

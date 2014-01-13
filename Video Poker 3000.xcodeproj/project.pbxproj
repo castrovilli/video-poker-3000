@@ -54,6 +54,10 @@
 		DAF5B14F1881AFC000C7A08B /* PGVPMainButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B14E1881AFC000C7A08B /* PGVPMainButtonView.m */; };
 		DAF5B1521881DE0A00C7A08B /* PGVPBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B1511881DE0A00C7A08B /* PGVPBannerView.m */; };
 		DAF5B1551881EEC100C7A08B /* PGVPMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B1541881EEC100C7A08B /* PGVPMoneyView.m */; };
+		DAF5B1581883450800C7A08B /* PGVPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B1571883450800C7A08B /* PGVPSettingsViewController.m */; };
+		DAF5B15B1883517900C7A08B /* PGVPCancelDoneNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B15A1883517900C7A08B /* PGVPCancelDoneNavBar.m */; };
+		DAF5B15F188359B900C7A08B /* PGVPCardBackSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B15E188359B900C7A08B /* PGVPCardBackSetting.m */; };
+		DAF5B16218835D0900C7A08B /* PGVPPayoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B16118835D0900C7A08B /* PGVPPayoutSetting.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +133,16 @@
 		DAF5B1511881DE0A00C7A08B /* PGVPBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPBannerView.m; sourceTree = "<group>"; };
 		DAF5B1531881EEC100C7A08B /* PGVPMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPMoneyView.h; sourceTree = "<group>"; };
 		DAF5B1541881EEC100C7A08B /* PGVPMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPMoneyView.m; sourceTree = "<group>"; };
+		DAF5B1561883450800C7A08B /* PGVPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPSettingsViewController.h; sourceTree = "<group>"; };
+		DAF5B1571883450800C7A08B /* PGVPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPSettingsViewController.m; sourceTree = "<group>"; };
+		DAF5B1591883517900C7A08B /* PGVPCancelDoneNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPCancelDoneNavBar.h; sourceTree = "<group>"; };
+		DAF5B15A1883517900C7A08B /* PGVPCancelDoneNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPCancelDoneNavBar.m; sourceTree = "<group>"; };
+		DAF5B15C1883528B00C7A08B /* PGVPCancelDoneNavBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPCancelDoneNavBarDelegate.h; sourceTree = "<group>"; };
+		DAF5B15D188359B900C7A08B /* PGVPCardBackSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPCardBackSetting.h; sourceTree = "<group>"; };
+		DAF5B15E188359B900C7A08B /* PGVPCardBackSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPCardBackSetting.m; sourceTree = "<group>"; };
+		DAF5B16018835D0900C7A08B /* PGVPPayoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPPayoutSetting.h; sourceTree = "<group>"; };
+		DAF5B16118835D0900C7A08B /* PGVPPayoutSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPPayoutSetting.m; sourceTree = "<group>"; };
+		DAF5B16318836CF100C7A08B /* PGVPSettingsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPSettingsViewControllerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,11 +204,10 @@
 			children = (
 				DAB274BD1878EBC50039732C /* PGCards */,
 				DAB274D418790C060039732C /* Model Classes */,
-				DAB274D318790BEB0039732C /* View Classes */,
+				DAB274D318790BEB0039732C /* Main View Classes */,
+				DAF5B1641883763D00C7A08B /* Settings View Classes */,
 				DAB274841878EB420039732C /* PGVPAppDelegate.h */,
 				DAB274851878EB420039732C /* PGVPAppDelegate.m */,
-				DAB274C81878EC6C0039732C /* PGVPMainViewController.h */,
-				DAB274C91878EC6C0039732C /* PGVPMainViewController.m */,
 				DAB274871878EB420039732C /* Images.xcassets */,
 				DAB2747C1878EB420039732C /* Supporting Files */,
 			);
@@ -253,35 +266,37 @@
 			name = PGCards;
 			sourceTree = "<group>";
 		};
-		DAB274D318790BEB0039732C /* View Classes */ = {
+		DAB274D318790BEB0039732C /* Main View Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DAB274C81878EC6C0039732C /* PGVPMainViewController.h */,
+				DAB274C91878EC6C0039732C /* PGVPMainViewController.m */,
+				DAF5B1501881DE0A00C7A08B /* PGVPBannerView.h */,
+				DAF5B1511881DE0A00C7A08B /* PGVPBannerView.m */,
 				DAB274CF1878F72F0039732C /* PGVPFiveCardHand.h */,
 				DAB274D01878F72F0039732C /* PGVPFiveCardHand.m */,
 				DAB274CB1878ED750039732C /* PGVPCardPlace.h */,
 				DAB274CC1878ED750039732C /* PGVPCardPlace.m */,
-				DAEAC66E187A1FA900B95739 /* PGVPStatusView.h */,
-				DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */,
+				DAB274DD187932010039732C /* PGVPCardInfo.h */,
+				DAB274DE187932010039732C /* PGVPCardInfo.m */,
 				DAF5B1531881EEC100C7A08B /* PGVPMoneyView.h */,
 				DAF5B1541881EEC100C7A08B /* PGVPMoneyView.m */,
 				DAB274D518790D240039732C /* PGVPCashView.h */,
 				DAB274D618790D240039732C /* PGVPCashView.m */,
-				DAF5B14D1881AFC000C7A08B /* PGVPMainButtonView.h */,
-				DAF5B14E1881AFC000C7A08B /* PGVPMainButtonView.m */,
 				DAB274D91879163B0039732C /* PGVPBetView.h */,
 				DAB274DA1879163B0039732C /* PGVPBetView.m */,
-				DAB274DD187932010039732C /* PGVPCardInfo.h */,
-				DAB274DE187932010039732C /* PGVPCardInfo.m */,
+				DAEAC66E187A1FA900B95739 /* PGVPStatusView.h */,
+				DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */,
+				DAF5B14D1881AFC000C7A08B /* PGVPMainButtonView.h */,
+				DAF5B14E1881AFC000C7A08B /* PGVPMainButtonView.m */,
 				DAF5B145187F764B00C7A08B /* PGVPPayoutTableView.h */,
 				DAF5B146187F764B00C7A08B /* PGVPPayoutTableView.m */,
 				DAF5B148187F766700C7A08B /* PGVPPayoutLineView.h */,
 				DAF5B149187F766700C7A08B /* PGVPPayoutLineView.m */,
 				DAB274E21879BA8A0039732C /* PGVPCardHandDelegate.h */,
 				DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */,
-				DAF5B1501881DE0A00C7A08B /* PGVPBannerView.h */,
-				DAF5B1511881DE0A00C7A08B /* PGVPBannerView.m */,
 			);
-			name = "View Classes";
+			name = "Main View Classes";
 			sourceTree = "<group>";
 		};
 		DAB274D418790C060039732C /* Model Classes */ = {
@@ -293,6 +308,23 @@
 				DAB274E118793A040039732C /* PGVPPokerMachineDelegate.h */,
 			);
 			name = "Model Classes";
+			sourceTree = "<group>";
+		};
+		DAF5B1641883763D00C7A08B /* Settings View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DAF5B1561883450800C7A08B /* PGVPSettingsViewController.h */,
+				DAF5B1571883450800C7A08B /* PGVPSettingsViewController.m */,
+				DAF5B1591883517900C7A08B /* PGVPCancelDoneNavBar.h */,
+				DAF5B15A1883517900C7A08B /* PGVPCancelDoneNavBar.m */,
+				DAF5B15C1883528B00C7A08B /* PGVPCancelDoneNavBarDelegate.h */,
+				DAF5B15D188359B900C7A08B /* PGVPCardBackSetting.h */,
+				DAF5B15E188359B900C7A08B /* PGVPCardBackSetting.m */,
+				DAF5B16018835D0900C7A08B /* PGVPPayoutSetting.h */,
+				DAF5B16118835D0900C7A08B /* PGVPPayoutSetting.m */,
+				DAF5B16318836CF100C7A08B /* PGVPSettingsViewControllerDelegate.h */,
+			);
+			name = "Settings View Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,11 +425,14 @@
 			files = (
 				DAB274CA1878EC6C0039732C /* PGVPMainViewController.m in Sources */,
 				DAB274B11878EBB00039732C /* PGCardsCard.m in Sources */,
+				DAF5B15B1883517900C7A08B /* PGVPCancelDoneNavBar.m in Sources */,
 				DAF5B147187F764B00C7A08B /* PGVPPayoutTableView.m in Sources */,
 				DAB274CD1878ED750039732C /* PGVPCardPlace.m in Sources */,
 				DAF5B14F1881AFC000C7A08B /* PGVPMainButtonView.m in Sources */,
 				DAB274821878EB420039732C /* main.m in Sources */,
 				DAB274B51878EBB00039732C /* PGCardsHand.m in Sources */,
+				DAF5B15F188359B900C7A08B /* PGVPCardBackSetting.m in Sources */,
+				DAF5B1581883450800C7A08B /* PGVPSettingsViewController.m in Sources */,
 				DAB274BB1878EBB00039732C /* PGCardsPokerTable.m in Sources */,
 				DAB274861878EB420039732C /* PGVPAppDelegate.m in Sources */,
 				DAB274D11878F72F0039732C /* PGVPFiveCardHand.m in Sources */,
@@ -407,6 +442,7 @@
 				DAB274DB1879163B0039732C /* PGVPBetView.m in Sources */,
 				DAB274D718790D240039732C /* PGVPCashView.m in Sources */,
 				DAB274B31878EBB00039732C /* PGCardsDeck.m in Sources */,
+				DAF5B16218835D0900C7A08B /* PGVPPayoutSetting.m in Sources */,
 				DAF5B14A187F766700C7A08B /* PGVPPayoutLineView.m in Sources */,
 				DAB274B91878EBB00039732C /* PGCardsPokerHandInfo.m in Sources */,
 				DAF5B1551881EEC100C7A08B /* PGVPMoneyView.m in Sources */,

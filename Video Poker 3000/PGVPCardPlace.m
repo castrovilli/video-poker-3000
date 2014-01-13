@@ -167,4 +167,16 @@
 }
 
 
+- (void)setCardBackColor:(enum CardBacksChoiceOptions)cardBackOption
+{
+    if ( cardBackOption == CARDBACKS_CHOICE_BLUE ) {
+        _cardBackImg.image = [UIImage imageNamed:@"card_back_blue"];
+    } else if ( cardBackOption == CARDBACKS_CHOICE_RED ) {
+        _cardBackImg.image = [UIImage imageNamed:@"card_back_red"];
+    } else {
+        [NSException raise:@"PGVPCardPlace" format:@"Unknown card back option"];
+    }
+}
+
+
 @end
