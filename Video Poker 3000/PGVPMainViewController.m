@@ -408,7 +408,6 @@ static const CGFloat kPGVPBottomMargin = 15;
         //  to their initial values, disable the card view and enable the bet view.
         
         [self discardCards];
-        [self updateCashAmounts];
         [self enableHandView:NO andBetView:YES];
         [self updateButtonTitle:@"Deal your first hand!"
                       andStatus:@"Welcome to Video Poker! Make your bet and deal your first hand to begin."];
