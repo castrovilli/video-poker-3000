@@ -174,10 +174,6 @@ static const CGFloat kPGVPBottomMargin = 15;
      */
     NSString * _statusText;
     
-    /**
-     Card back choice option.
-     */
-    enum CardBacksChoiceOptions _cardBackOption;
 }
 
 
@@ -195,12 +191,20 @@ static const CGFloat kPGVPBottomMargin = 15;
     [super viewDidLoad];
     
     
+    //  Register app defaults
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary * appDefaults = @{@"cardback" : [NSNumber numberWithInt:CARDBACKS_CHOICE_BLUE],
+                                   @"payout" : [NSNumber numberWithInt:PAYOUT_CHOICE_NORMAL]};
+    [defaults registerDefaults:appDefaults];
+    
+    
     //  Set instance variables and background color
 
     self.view.backgroundColor = [UIColor whiteColor];
     _dealt = NO;
     _pokerMachine = [PGCardsPokerTable new];
-    _cardBackOption = CARDBACKS_CHOICE_BLUE;
+    _pokerMachine.payoutOption = (enum PayoutChoiceOptions) [defaults integerForKey:@"payout"];
     _showBetPicker = NO;
     _betChoice = 5;
     
@@ -208,8 +212,11 @@ static const CGFloat kPGVPBottomMargin = 15;
     //  Create sub views
     
     _banner = [PGVPBannerView createBanner];
+    
     _hand = [PGVPFiveCardHand objectWithFrame:CGRectMake(15, 137, 290, 71) andMachineDelegate:_pokerMachine andNotifyDelegate:self];
-    _moneyView = [PGVPMoneyView objectWithBet:[_pokerMachine getBetForIndex:_pokerMachine.betIndex]
+    [_hand setCardBackColor:(enum CardBacksChoiceOptions) [defaults integerForKey:@"cardback"]];
+
+    _moneyView = [PGVPMoneyView objectWithBet:_pokerMachine.currentBet
                                       andCash:_pokerMachine.currentCash andDelegate:self];
     _statusView = [PGVPStatusView objectWithStatus:@"Welcome to Video Poker! Make your bet and deal your first hand to begin."];
     _dealButton = [PGVPMainButtonView objectWithTarget:self andAction:@selector(mainButtonAction:)];
@@ -254,7 +261,7 @@ static const CGFloat kPGVPBottomMargin = 15;
     //  Create spacer views and add constraints between UI views
     
     NSArray * views = @[_banner, _hand, _moneyView, _statusView, _dealButton, _payoutTable];
-    int numViews = views.count;
+    NSUInteger numViews = views.count;
     NSMutableArray * spaces = [NSMutableArray new];
     
     for ( int i = 0; i < (numViews - 1); ++i ) {
@@ -317,7 +324,7 @@ static const CGFloat kPGVPBottomMargin = 15;
 - (void)updateCashAmounts
 {
     [_moneyView setCashAmount:_pokerMachine.currentCash];
-    [_moneyView setBetAmount:[_pokerMachine getBetForIndex:_pokerMachine.betIndex]];
+    [_moneyView setBetAmount:_pokerMachine.currentBet];
    
 }
 
@@ -427,8 +434,10 @@ static const CGFloat kPGVPBottomMargin = 15;
 - (void)showSettings
 {
     PGVPSettingsViewController * controller = [PGVPSettingsViewController new];
-    controller.cardBackOption = _cardBackOption;
-    controller.payoutOption = _pokerMachine.payoutOption;
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+
+    controller.cardBackOption = (enum CardBacksChoiceOptions) [defaults integerForKey:@"cardback"];
+    controller.payoutOption = (enum PayoutChoiceOptions) [defaults integerForKey:@"payout"];
     controller.delegate = self;
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -437,8 +446,14 @@ static const CGFloat kPGVPBottomMargin = 15;
 - (void)dismissWithCancel:(BOOL)didCancel payout:(enum PayoutChoiceOptions)payoutOption cardBack:(enum CardBacksChoiceOptions)cardBack
 {
     if ( !didCancel ) {
-        _cardBackOption = cardBack;
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        
+        //_cardBackOption = cardBack;
+        [defaults setInteger:cardBack forKey:@"cardback"];
+        
         _pokerMachine.payoutOption = payoutOption;
+        [defaults setInteger:payoutOption forKey:@"payout"];
+        
         [_hand setCardBackColor:cardBack];
         [_payoutTable updatePayoutLabels];
     }
@@ -476,9 +491,9 @@ static const CGFloat kPGVPBottomMargin = 15;
 
 - (void)betPickerSelectionChangedWithIndex:(NSInteger)index
 {
-    [_moneyView setBetAmount:[_pokerMachine getBetForIndex:index]];
     _pokerMachine.betIndex = index;
-    _betChoice = index;
+    [_moneyView setBetAmount:_pokerMachine.currentBet];
+    _betChoice = (int) index;
 }
 
 

@@ -13,6 +13,7 @@
     NSArray * _betAmounts;
 }
 
+
 + (id)objectWithControllerDelegate:(id<PGVPPokerViewControllerDelegate>)controllerDelegate andMachineDelegate:(id<PGVPPokerMachineDelegate>)machineDelegate
 {
     return [[PGVPBetPickerDelegate alloc] initWithControllerDelegate:controllerDelegate

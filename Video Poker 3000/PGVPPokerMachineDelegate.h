@@ -44,6 +44,12 @@
 - (int)getCurrentCash;
 
 /**
+ Returns the current bet.
+ @return The current bet.
+ */
+- (int)getCurrentBet;
+
+/**
  Gets the payout ratio for the specified hand, using the currently selected payout option.
  @param handType The hand type.
  @return The payout ratio for the specified hand type.

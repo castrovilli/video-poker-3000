@@ -48,6 +48,11 @@ enum PGCardsPokerGameState {
 @property (assign, nonatomic, readonly) int currentCash;
 
 /**
+ The current bet.
+ */
+@property (assign, nonatomic, readonly) int currentBet;
+
+/**
  The current bet index.
  */
 @property (assign, nonatomic, readwrite) int betIndex;
