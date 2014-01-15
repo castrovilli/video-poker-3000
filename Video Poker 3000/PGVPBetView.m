@@ -18,7 +18,7 @@
 /**
  Margin between the title label and the left bound of the view.
  */
-static const CGFloat kPGVPSideMargin = 20;
+static const CGFloat kPGVPSideMargin = 3;
 
 
 @interface PGVPBetView ()
