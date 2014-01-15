@@ -39,8 +39,8 @@ static const CGFloat kPGVPResultsMargin = 5;
     self = [super initWithFrame:frame];
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        self.backgroundColor = [UIColor colorWithRed:.8 green:1 blue:.8 alpha:1];
-        
+        self.backgroundColor = [UIColor colorWithRed:.4414 green:.7813 blue:.9766 alpha:.2];
+
         
         //  Status label
 

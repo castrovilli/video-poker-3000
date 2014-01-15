@@ -37,10 +37,8 @@
         //  Main button container
         
         self.translatesAutoresizingMaskIntoConstraints = NO;
-        self.layer.borderColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1].CGColor;
-        self.layer.borderWidth = 1;
-        self.backgroundColor = [UIColor whiteColor];
-        
+        self.backgroundColor = [UIColor colorWithRed:.9766 green:.793 blue:.2031 alpha:.2];
+
         
         //  Main button
         

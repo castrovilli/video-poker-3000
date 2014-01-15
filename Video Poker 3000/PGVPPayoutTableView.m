@@ -49,16 +49,14 @@ static const CGFloat kPGVPInnerMargin = 5;
         
         self.translatesAutoresizingMaskIntoConstraints = NO;
         _delegate = delegate;
-        self.layer.borderWidth = 1;
-        self.layer.borderColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1].CGColor;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:.4801 green:.8203 blue:.3672 alpha:.2];
         
         
         //  Create a container view
         
         UIView * container = [UIView new];
         container.translatesAutoresizingMaskIntoConstraints = NO;
-        container.backgroundColor = [UIColor whiteColor];
+        container.backgroundColor = nil;
         [self addSubview:container];
         
         
