@@ -48,8 +48,6 @@
 		DAB274DF187932010039732C /* PGVPCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DE187932010039732C /* PGVPCardInfo.m */; };
 		DAB274E0187932010039732C /* PGVPCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB274DE187932010039732C /* PGVPCardInfo.m */; };
 		DAEAC670187A1FA900B95739 /* PGVPStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */; };
-		DAECAB1D1888DE0900F69EBC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAECAB1B1888DE0900F69EBC /* LICENSE */; };
-		DAECAB1E1888DE0900F69EBC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DAECAB1C1888DE0900F69EBC /* README.md */; };
 		DAECAB211888DF0000F69EBC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DAECAB1F1888DF0000F69EBC /* LICENSE */; };
 		DAECAB221888DF0000F69EBC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DAECAB201888DF0000F69EBC /* README.md */; };
 		DAF5B147187F764B00C7A08B /* PGVPPayoutTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF5B146187F764B00C7A08B /* PGVPPayoutTableView.m */; };
@@ -127,8 +125,6 @@
 		DAB274E31879C4530039732C /* PGVPPokerViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGVPPokerViewControllerDelegate.h; sourceTree = "<group>"; };
 		DAEAC66E187A1FA900B95739 /* PGVPStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPStatusView.h; sourceTree = "<group>"; };
 		DAEAC66F187A1FA900B95739 /* PGVPStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGVPStatusView.m; sourceTree = "<group>"; };
-		DAECAB1B1888DE0900F69EBC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		DAECAB1C1888DE0900F69EBC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DAECAB1F1888DF0000F69EBC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DAECAB201888DF0000F69EBC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DAF5B145187F764B00C7A08B /* PGVPPayoutTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGVPPayoutTableView.h; sourceTree = "<group>"; };
@@ -215,8 +211,6 @@
 		DAB2747B1878EB420039732C /* Video Poker 3000 */ = {
 			isa = PBXGroup;
 			children = (
-				DAECAB1B1888DE0900F69EBC /* LICENSE */,
-				DAECAB1C1888DE0900F69EBC /* README.md */,
 				DAB274BD1878EBC50039732C /* PGCards */,
 				DAB274D418790C060039732C /* Model Classes */,
 				DAB274D318790BEB0039732C /* Main View Classes */,
@@ -421,9 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAECAB221888DF0000F69EBC /* README.md in Resources */,
-				DAECAB1D1888DE0900F69EBC /* LICENSE in Resources */,
 				DAB274801878EB420039732C /* InfoPlist.strings in Resources */,
-				DAECAB1E1888DE0900F69EBC /* README.md in Resources */,
 				DAB274881878EB420039732C /* Images.xcassets in Resources */,
 				DAECAB211888DF0000F69EBC /* LICENSE in Resources */,
 			);
