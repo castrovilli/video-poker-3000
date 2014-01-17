@@ -1,29 +1,29 @@
-Video Poker
-===========
+Video Poker 3000
+================
 
 What is it?
 -----------
 
-**Video Poker** is an iOS7 app for the Apple iPad implementing a simple
+**Video Poker 3000** is an iOS7 app for the Apple iPhone implementing a simple
 one-player game.
 
 Who maintains it?
 -----------------
-**Video Poker* is written and maintained by Paul Griffiths.
+**Video Poker 3000** is written and maintained by Paul Griffiths.
 
 The latest version
 ------------------
 Details of the latest version can be found on the GitHub project page at
-<https://github.com/paulgriffiths/ipad-video-poker>.
+<https://github.com/paulgriffiths/video-poker-3000>.
 
 Documentation
 -------------
 Up-to-date documentation can be found at
-<https://github.com/paulgriffiths/ipad-video-poker/wiki>.
+<https://github.com/paulgriffiths/video-poker-3000/wiki>.
 
 Installation
 ------------
-**Video Poker** is written in Objective C, and is provided in the form of
+**Video Poker 3000** is written in Objective C, and is provided in the form of
 an Xcode 5 project.
 
 Licensing
@@ -42,4 +42,4 @@ Library:
 Contacts
 --------
 If you have a concrete bug report for **Video Poker** please go to the GitHub
-issue tracker at <https://github.com/paulgriffiths/ipad-video-poker/issues>.
+issue tracker at <https://github.com/paulgriffiths/video-poker-3000/issues>.
