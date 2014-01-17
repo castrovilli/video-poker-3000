@@ -338,6 +338,8 @@ static const CGFloat kPGVPBottomMargin = 15;
     [_statusView setStatusText:_statusText];
     
     [self updateCashAmounts];
+
+    [_dealButton enable:YES];
 }
 
 
@@ -382,6 +384,7 @@ static const CGFloat kPGVPBottomMargin = 15;
         //  The initial cards have been dealt, so enable the card view for flipping,
         //  and disable the bet view.
         
+        [_dealButton enable:NO];
         [self dealOrRedealCards];
         [self enableHandView:YES andBetView:NO];
         [self updateButtonTitle:@"Exchange cards or stand"
@@ -392,6 +395,7 @@ static const CGFloat kPGVPBottomMargin = 15;
         //  The cards have been exchanged and we're at the end of the hand, so disable the
         //  card view and enable the bet view to allow a new bet to be entered.
         
+        [_dealButton enable:NO];
         [self exchangeCards];
         [self enableHandView:NO andBetView:YES];
         [self updateButtonTitle:@"Deal new hand" andStatus:_pokerMachine.evaluationString];
@@ -405,6 +409,7 @@ static const CGFloat kPGVPBottomMargin = 15;
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Game over!" message:@"You ran out of cash!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alert show];
         
+        [_dealButton enable:NO];
         [self exchangeCards];
         [self enableHandView:NO andBetView:NO];
         [self updateButtonTitle:@"Start new game" andStatus:_pokerMachine.evaluationString];
@@ -414,6 +419,7 @@ static const CGFloat kPGVPBottomMargin = 15;
         //  We've started a new game after losing the last one, so reset the cash and bet views
         //  to their initial values, disable the card view and enable the bet view.
         
+        [_dealButton enable:NO];
         [self discardCards];
         [self enableHandView:NO andBetView:YES];
         [self updateButtonTitle:@"Deal your first hand!"
